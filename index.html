@@ -1357,3 +1357,668 @@ var doneS=0,totalS=0;
 </script>
 </body>
 </html>
+
+import { useState, useMemo, useEffect } from "react";
+
+const CATS = [
+  { label: "Food", emoji: "🍔", color: "#FF6B6B" },
+  { label: "Transport", emoji: "🚌", color: "#4ECDC4" },
+  { label: "Shopping", emoji: "🛍️", color: "#FFE66D" },
+  { label: "Bills", emoji: "💡", color: "#A8E6CF" },
+  { label: "Health", emoji: "💊", color: "#FF8B94" },
+  { label: "Entertainment", emoji: "🎬", color: "#C3A6FF" },
+  { label: "Education", emoji: "📚", color: "#FFD93D" },
+  { label: "Other", emoji: "📦", color: "#B8C6DB" },
+];
+
+function todayStr() {
+  return new Date().toISOString().split("T")[0];
+}
+function nowTime() {
+  return new Date().toTimeString().slice(0, 5);
+}
+function fmtDate(s) {
+  const d = new Date(s + "T00:00:00");
+  const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const mons = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return `${days[d.getDay()]}, ${d.getDate()} ${mons[d.getMonth()]} ${d.getFullYear()}`;
+}
+function fmtMonthYear(s) {
+  const d = new Date(s + "T00:00:00");
+  const mons = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  return `${mons[d.getMonth()]} ${d.getFullYear()}`;
+}
+function monthKey(s) { return s.slice(0, 7); }
+function getDatesInMonth(ym) {
+  const [y, m] = ym.split("-").map(Number);
+  const count = new Date(y, m, 0).getDate();
+  return Array.from({ length: count }, (_, i) => {
+    const dd = String(i + 1).padStart(2, "0");
+    return `${y}-${String(m).padStart(2,"0")}-${dd}`;
+  });
+}
+function salaryCycleDates(ref) {
+  const d = new Date(ref + "T00:00:00");
+  const y = d.getFullYear(), m = d.getMonth();
+  const start = new Date(y, m - 1, 21);
+  const end = new Date(y, m, 20);
+  const out = [];
+  for (let c = new Date(start); c <= end; c.setDate(c.getDate() + 1))
+    out.push(c.toISOString().split("T")[0]);
+  return out;
+}
+function otCycleDates(ref) {
+  const d = new Date(ref + "T00:00:00");
+  const y = d.getFullYear(), m = d.getMonth();
+  const start = new Date(y, m - 1, 16);
+  const end = new Date(y, m, 15);
+  const out = [];
+  for (let c = new Date(start); c <= end; c.setDate(c.getDate() + 1))
+    out.push(c.toISOString().split("T")[0]);
+  return out;
+}
+
+export default function MyTracker() {
+  const TODAY = todayStr();
+  const [tab, setTab] = useState("expense");
+
+  // ── EXPENSES ──
+  const [expenses, setExpenses] = useState([
+    { id: 1, date: TODAY, amount: 120, category: "Food", note: "Lunch at cafe" },
+    { id: 2, date: TODAY, amount: 50, category: "Transport", note: "Auto fare" },
+  ]);
+  const [eForm, setEForm] = useState({ date: TODAY, amount: "", category: "Food", note: "" });
+  const [showEForm, setShowEForm] = useState(false);
+  const [delId, setDelId] = useState(null);
+  const [eTab, setETab] = useState("daily");
+
+  // ── DUTY ──
+  const [dutyLog, setDutyLog] = useState({});
+  const [dutyMonth, setDutyMonth] = useState(TODAY.slice(0, 7));
+  const [dialog, setDialog] = useState(null);
+  const [dlgDate, setDlgDate] = useState(TODAY);
+
+  useEffect(() => {
+    if (tab === "duty") {
+      const log = dutyLog[TODAY];
+      if (!log || (!log.inTime && !log.outTime)) {
+        setDlgDate(TODAY);
+        setDialog("ask_in");
+      } else if (log.inTime && !log.outTime) {
+        setDlgDate(TODAY);
+        setDialog("ask_out");
+      }
+    }
+  }, [tab]);
+
+  function markIn() {
+    const t = nowTime();
+    setDutyLog(p => ({ ...p, [dlgDate]: { ...(p[dlgDate] || {}), present: true, inTime: t, ot: p[dlgDate]?.ot || false } }));
+    setDialog(null);
+  }
+  function markOut() {
+    const t = nowTime();
+    setDutyLog(p => ({ ...p, [dlgDate]: { ...(p[dlgDate] || {}), outTime: t } }));
+    setDialog(null);
+  }
+  function togglePresent(date) {
+    setDutyLog(p => { const c = p[date] || {}; return { ...p, [date]: { ...c, present: !c.present } }; });
+  }
+  function toggleOT(date) {
+    setDutyLog(p => { const c = p[date] || {}; return { ...p, [date]: { ...c, ot: !c.ot } }; });
+  }
+
+  const salDates = useMemo(() => salaryCycleDates(TODAY), []);
+  const otDates = useMemo(() => otCycleDates(TODAY), []);
+  const presentCount = salDates.filter(d => dutyLog[d]?.present).length;
+  const otCount = otDates.filter(d => dutyLog[d]?.ot).length;
+  const monthDates = useMemo(() => getDatesInMonth(dutyMonth), [dutyMonth]);
+
+  const byDate = useMemo(() => {
+    const map = {};
+    expenses.forEach(e => { if (!map[e.date]) map[e.date] = []; map[e.date].push(e); });
+    return Object.entries(map).sort((a, b) => b[0].localeCompare(a[0]));
+  }, [expenses]);
+
+  const byMonth = useMemo(() => {
+    const map = {};
+    expenses.forEach(e => {
+      const mk = monthKey(e.date);
+      if (!map[mk]) map[mk] = { total: 0, cats: {} };
+      map[mk].total += e.amount;
+      map[mk].cats[e.category] = (map[mk].cats[e.category] || 0) + e.amount;
+    });
+    return Object.entries(map).sort((a, b) => b[0].localeCompare(a[0]));
+  }, [expenses]);
+
+  const todayTotal = useMemo(() => expenses.filter(e => e.date === TODAY).reduce((s, e) => s + e.amount, 0), [expenses]);
+  const mTotal = useMemo(() => expenses.filter(e => monthKey(e.date) === monthKey(TODAY)).reduce((s, e) => s + e.amount, 0), [expenses]);
+  const getCat = l => CATS.find(c => c.label === l) || CATS[7];
+
+  function addExpense() {
+    if (!eForm.amount || Number(eForm.amount) <= 0) return;
+    setExpenses(p => [{ id: Date.now(), date: eForm.date, amount: Number(eForm.amount), category: eForm.category, note: eForm.note.trim() }, ...p]);
+    setEForm({ date: TODAY, amount: "", category: "Food", note: "" });
+    setShowEForm(false);
+  }
+
+  function prevMonth() {
+    const [y, m] = dutyMonth.split("-").map(Number);
+    const d = new Date(y, m - 2, 1);
+    setDutyMonth(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`);
+  }
+  function nextMonth() {
+    const [y, m] = dutyMonth.split("-").map(Number);
+    const d = new Date(y, m, 1);
+    const next = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    if (next <= TODAY.slice(0, 7)) setDutyMonth(next);
+  }
+
+  const RS = "\u20B9";
+
+  return (
+    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f0c29,#302b63,#24243e)", fontFamily: "'DM Sans',sans-serif", color: "#fff", paddingBottom: 80 }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0}
+        .card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:16px;backdrop-filter:blur(10px)}
+        .mtab{flex:1;padding:13px 8px;border:none;background:transparent;color:rgba(255,255,255,.4);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;letter-spacing:.5px}
+        .mtab.on{color:#fff;border-bottom:3px solid #FF6B6B}
+        .stab{flex:1;padding:9px;border:none;background:transparent;color:rgba(255,255,255,.45);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+        .stab.on{background:rgba(255,255,255,.08);border-bottom:2px solid #FFE66D;color:#FFE66D}
+        .erow{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;background:rgba(255,255,255,.05);margin-bottom:7px;transition:background .2s}
+        .erow:hover{background:rgba(255,255,255,.09)}
+        .drow{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.04);margin-bottom:6px}
+        .drow.today{background:rgba(255,230,109,.07);border:1px solid rgba(255,230,109,.2)}
+        .chk{width:30px;height:30px;border-radius:8px;border:2px solid rgba(255,255,255,.2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .2s;flex-shrink:0;color:#fff}
+        .chk.p{background:#4ECDC4;border-color:#4ECDC4}
+        .chk.o{background:#C3A6FF;border-color:#C3A6FF}
+        .fab{position:fixed;bottom:26px;right:26px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#FFE66D,#FF6B6B);border:none;color:#1a1a2e;font-size:28px;font-weight:900;cursor:pointer;box-shadow:0 8px 28px rgba(255,107,107,.55);display:flex;align-items:center;justify-content:center;z-index:100;font-family:inherit;transition:transform .2s}
+        .fab:hover{transform:scale(1.1)}
+        .overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:flex-end;justify-content:center;animation:fi .2s}
+        .sheet{background:linear-gradient(180deg,#1e1b4b,#0f0c29);border:1px solid rgba(255,255,255,.15);border-radius:24px 24px 0 0;padding:24px 20px 40px;width:100%;max-width:480px;animation:su .3s;overflow-y:auto;max-height:92vh}
+        @keyframes fi{from{opacity:0}to{opacity:1}}
+        @keyframes su{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+        input,textarea{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;color:#fff;padding:11px 13px;font-size:15px;font-family:inherit;outline:none;transition:border-color .2s}
+        input:focus,textarea:focus{border-color:rgba(255,230,109,.6)}
+        .chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:2px solid transparent;background:rgba(255,255,255,.07);transition:all .2s}
+        .chip.on{background:rgba(255,230,109,.15);border-color:#FFE66D}
+        .sbtn{width:100%;padding:13px;border-radius:14px;border:none;background:linear-gradient(135deg,#FFE66D,#FF6B6B);color:#1a1a2e;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit}
+        .dbtn{flex:1;padding:11px;border-radius:12px;border:none;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:transform .15s}
+        .dbtn:hover{transform:scale(1.03)}
+        .cov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:400;display:flex;align-items:center;justify-content:center;animation:fi .2s}
+        .cbox{background:linear-gradient(145deg,#1e1b4b,#16133a);border:1px solid rgba(255,255,255,.15);border-radius:22px;padding:28px 24px;max-width:310px;width:90%;text-align:center}
+        .mnbtn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:8px;padding:6px 14px;cursor:pointer;font-family:inherit;font-size:13px}
+        .tbadge{font-size:11px;background:rgba(255,255,255,.1);border-radius:6px;padding:2px 7px;color:rgba(255,255,255,.6)}
+        .delbtn{background:rgba(255,80,80,.15);border:1px solid rgba(255,80,80,.3);color:#FF6B6B;border-radius:8px;padding:4px 10px;cursor:pointer;font-size:13px;font-family:inherit}
+      `}</style>
+
+      {/* HEADER */}
+      <div style={{ padding: "24px 20px 0" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", marginBottom: 3, textTransform: "uppercase", letterSpacing: 1 }}>Today</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "#FFE66D" }}>{fmtDate(TODAY)}</div>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", textTransform: "uppercase", letterSpacing: 1 }}>Month Total</div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: "#4ECDC4" }}>{RS}{mTotal.toLocaleString()}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* MAIN TABS */}
+      <div style={{ display: "flex", padding: "16px 20px 0", borderBottom: "1px solid rgba(255,255,255,.08)", marginTop: 14 }}>
+        <button className={`mtab ${tab === "expense" ? "on" : ""}`} onClick={() => setTab("expense")}>💸 Expenses</button>
+        <button className={`mtab ${tab === "duty" ? "on" : ""}`} onClick={() => setTab("duty")}>🏢 Duty</button>
+      </div>
+
+      {/* ══════ EXPENSE TAB ══════ */}
+      {tab === "expense" && (
+        <div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, padding: "16px 20px 0" }}>
+            <div className="card" style={{ padding: 16 }}>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 6, textTransform: "uppercase", letterSpacing: .5 }}>Today Spent</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: "#FF6B6B" }}>{RS}{todayTotal.toLocaleString()}</div>
+              <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginTop: 2 }}>{expenses.filter(e => e.date === TODAY).length} transactions</div>
+            </div>
+            <div className="card" style={{ padding: 16 }}>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 6, textTransform: "uppercase", letterSpacing: .5 }}>Total Days</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: "#C3A6FF" }}>{new Set(expenses.map(e => e.date)).size}</div>
+              <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginTop: 2 }}>{expenses.length} entries</div>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", padding: "14px 20px 0", gap: 4 }}>
+            <button className={`stab ${eTab === "daily" ? "on" : ""}`} onClick={() => setETab("daily")}>Daily</button>
+            <button className={`stab ${eTab === "monthly" ? "on" : ""}`} onClick={() => setETab("monthly")}>Monthly</button>
+          </div>
+
+          <div style={{ padding: "14px 20px" }}>
+            {eTab === "daily" && (
+              <div>
+                {byDate.length === 0 && <div style={{ textAlign: "center", color: "rgba(255,255,255,.3)", padding: "50px 0" }}><div style={{ fontSize: 36 }}>📭</div><div style={{ marginTop: 10, fontSize: 14 }}>No expenses yet. Tap + to add!</div></div>}
+                {byDate.map(([date, exps]) => {
+                  const dt = exps.reduce((s, e) => s + e.amount, 0);
+                  return (
+                    <div key={date} style={{ marginBottom: 18 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                        <div>
+                          <div style={{ fontSize: 12, fontWeight: 700, color: date === TODAY ? "#FFE66D" : "rgba(255,255,255,.65)" }}>{date === TODAY ? "🔴 Today" : fmtDate(date)}</div>
+                          {date === TODAY && <div style={{ fontSize: 10, color: "rgba(255,255,255,.3)" }}>{fmtDate(date)}</div>}
+                        </div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: "#4ECDC4" }}>{RS}{dt.toLocaleString()}</div>
+                      </div>
+                      {exps.map(e => {
+                        const cat = getCat(e.category);
+                        return (
+                          <div key={e.id} className="erow">
+                            <div style={{ width: 38, height: 38, borderRadius: 10, background: cat.color + "22", border: `1.5px solid ${cat.color}55`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>{cat.emoji}</div>
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ fontWeight: 600, fontSize: 13 }}>{e.category}</div>
+                              {e.note && <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{e.note}</div>}
+                            </div>
+                            <div style={{ fontWeight: 700, fontSize: 14, marginRight: 8 }}>{RS}{e.amount.toLocaleString()}</div>
+                            <button className="delbtn" onClick={() => setDelId(e.id)}>✕</button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+            {eTab === "monthly" && (
+              <div>
+                {byMonth.length === 0 && <div style={{ textAlign: "center", color: "rgba(255,255,255,.3)", padding: "50px 0" }}><div style={{ fontSize: 36 }}>📊</div><div style={{ marginTop: 10, fontSize: 14 }}>No data yet.</div></div>}
+                {byMonth.map(([mk, data]) => {
+                  const top = Object.entries(data.cats).sort((a, b) => b[1] - a[1]);
+                  const mx = top[0]?.[1] || 1;
+                  return (
+                    <div key={mk} className="card" style={{ padding: 18, marginBottom: 14 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 14 }}>
+                        <div style={{ fontWeight: 700, fontSize: 15 }}>{fmtMonthYear(mk + "-01")}</div>
+                        <div style={{ fontWeight: 800, fontSize: 18, color: "#FFE66D" }}>{RS}{data.total.toLocaleString()}</div>
+                      </div>
+                      <div style={{ borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 12 }}>
+                        {top.map(([cat, amt]) => {
+                          const info = getCat(cat);
+                          return (
+                            <div key={cat} style={{ marginBottom: 10 }}>
+                              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                                <span style={{ fontSize: 12 }}>{info.emoji} {cat}</span>
+                                <span style={{ fontSize: 12, fontWeight: 600 }}>{RS}{amt.toLocaleString()}</span>
+                              </div>
+                              <div style={{ background: "rgba(255,255,255,.08)", borderRadius: 10, height: 5, overflow: "hidden" }}>
+                                <div style={{ height: 5, borderRadius: 10, width: `${(amt / mx) * 100}%`, background: info.color, transition: "width .6s" }} />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+          <button className="fab" onClick={() => setShowEForm(true)}>+</button>
+        </div>
+      )}
+
+      {/* ══════ DUTY TAB ══════ */}
+      {tab === "duty" && (
+        <div style={{ padding: "16px 20px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
+            <div className="card" style={{ padding: 16 }}>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 6, textTransform: "uppercase", letterSpacing: .5 }}>Present Days</div>
+              <div style={{ fontSize: 30, fontWeight: 800, color: "#4ECDC4" }}>{presentCount}</div>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.35)", marginTop: 2 }}>21st to 20th cycle</div>
+            </div>
+            <div className="card" style={{ padding: 16 }}>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 6, textTransform: "uppercase", letterSpacing: .5 }}>OT Days</div>
+              <div style={{ fontSize: 30, fontWeight: 800, color: "#C3A6FF" }}>{otCount}</div>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.35)", marginTop: 2 }}>16th to 15th cycle</div>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <button className="mnbtn" onClick={prevMonth}>&#8249; Prev</button>
+            <div style={{ fontWeight: 700, fontSize: 15 }}>{fmtMonthYear(dutyMonth + "-01")}</div>
+            <button className="mnbtn" onClick={nextMonth} style={{ opacity: dutyMonth >= TODAY.slice(0, 7) ? .3 : 1 }}>Next &#8250;</button>
+          </div>
+
+          <div style={{ display: "flex", gap: 16, marginBottom: 12, padding: "7px 12px", backgr
+
+
+            import { useState, useMemo, useEffect } from "react";
+
+const CATS = [
+  { label: "Food", emoji: "🍔", color: "#FF6B6B" },
+  { label: "Transport", emoji: "🚌", color: "#4ECDC4" },
+  { label: "Shopping", emoji: "🛍️", color: "#FFE66D" },
+  { label: "Bills", emoji: "💡", color: "#A8E6CF" },
+  { label: "Health", emoji: "💊", color: "#FF8B94" },
+  { label: "Entertainment", emoji: "🎬", color: "#C3A6FF" },
+  { label: "Education", emoji: "📚", color: "#FFD93D" },
+  { label: "Other", emoji: "📦", color: "#B8C6DB" },
+];
+
+function todayStr() {
+  return new Date().toISOString().split("T")[0];
+}
+function nowTime() {
+  return new Date().toTimeString().slice(0, 5);
+}
+function fmtDate(s) {
+  const d = new Date(s + "T00:00:00");
+  const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const mons = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return `${days[d.getDay()]}, ${d.getDate()} ${mons[d.getMonth()]} ${d.getFullYear()}`;
+}
+function fmtMonthYear(s) {
+  const d = new Date(s + "T00:00:00");
+  const mons = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  return `${mons[d.getMonth()]} ${d.getFullYear()}`;
+}
+function monthKey(s) { return s.slice(0, 7); }
+function getDatesInMonth(ym) {
+  const [y, m] = ym.split("-").map(Number);
+  const count = new Date(y, m, 0).getDate();
+  return Array.from({ length: count }, (_, i) => {
+    const dd = String(i + 1).padStart(2, "0");
+    return `${y}-${String(m).padStart(2,"0")}-${dd}`;
+  });
+}
+function salaryCycleDates(ref) {
+  const d = new Date(ref + "T00:00:00");
+  const y = d.getFullYear(), m = d.getMonth();
+  const start = new Date(y, m - 1, 21);
+  const end = new Date(y, m, 20);
+  const out = [];
+  for (let c = new Date(start); c <= end; c.setDate(c.getDate() + 1))
+    out.push(c.toISOString().split("T")[0]);
+  return out;
+}
+function otCycleDates(ref) {
+  const d = new Date(ref + "T00:00:00");
+  const y = d.getFullYear(), m = d.getMonth();
+  const start = new Date(y, m - 1, 16);
+  const end = new Date(y, m, 15);
+  const out = [];
+  for (let c = new Date(start); c <= end; c.setDate(c.getDate() + 1))
+    out.push(c.toISOString().split("T")[0]);
+  return out;
+}
+
+export default function MyTracker() {
+  const TODAY = todayStr();
+  const [tab, setTab] = useState("expense");
+
+  // ── EXPENSES ──
+  const [expenses, setExpenses] = useState([
+    { id: 1, date: TODAY, amount: 120, category: "Food", note: "Lunch at cafe" },
+    { id: 2, date: TODAY, amount: 50, category: "Transport", note: "Auto fare" },
+  ]);
+  const [eForm, setEForm] = useState({ date: TODAY, amount: "", category: "Food", note: "" });
+  const [showEForm, setShowEForm] = useState(false);
+  const [delId, setDelId] = useState(null);
+  const [eTab, setETab] = useState("daily");
+
+  // ── DUTY ──
+  const [dutyLog, setDutyLog] = useState({});
+  const [dutyMonth, setDutyMonth] = useState(TODAY.slice(0, 7));
+  const [dialog, setDialog] = useState(null);
+  const [dlgDate, setDlgDate] = useState(TODAY);
+
+  useEffect(() => {
+    if (tab === "duty") {
+      const log = dutyLog[TODAY];
+      if (!log || (!log.inTime && !log.outTime)) {
+        setDlgDate(TODAY);
+        setDialog("ask_in");
+      } else if (log.inTime && !log.outTime) {
+        setDlgDate(TODAY);
+        setDialog("ask_out");
+      }
+    }
+  }, [tab]);
+
+  function markIn() {
+    const t = nowTime();
+    setDutyLog(p => ({ ...p, [dlgDate]: { ...(p[dlgDate] || {}), present: true, inTime: t, ot: p[dlgDate]?.ot || false } }));
+    setDialog(null);
+  }
+  function markOut() {
+    const t = nowTime();
+    setDutyLog(p => ({ ...p, [dlgDate]: { ...(p[dlgDate] || {}), outTime: t } }));
+    setDialog(null);
+  }
+  function togglePresent(date) {
+    setDutyLog(p => { const c = p[date] || {}; return { ...p, [date]: { ...c, present: !c.present } }; });
+  }
+  function toggleOT(date) {
+    setDutyLog(p => { const c = p[date] || {}; return { ...p, [date]: { ...c, ot: !c.ot } }; });
+  }
+
+  const salDates = useMemo(() => salaryCycleDates(TODAY), []);
+  const otDates = useMemo(() => otCycleDates(TODAY), []);
+  const presentCount = salDates.filter(d => dutyLog[d]?.present).length;
+  const otCount = otDates.filter(d => dutyLog[d]?.ot).length;
+  const monthDates = useMemo(() => getDatesInMonth(dutyMonth), [dutyMonth]);
+
+  const byDate = useMemo(() => {
+    const map = {};
+    expenses.forEach(e => { if (!map[e.date]) map[e.date] = []; map[e.date].push(e); });
+    return Object.entries(map).sort((a, b) => b[0].localeCompare(a[0]));
+  }, [expenses]);
+
+  const byMonth = useMemo(() => {
+    const map = {};
+    expenses.forEach(e => {
+      const mk = monthKey(e.date);
+      if (!map[mk]) map[mk] = { total: 0, cats: {} };
+      map[mk].total += e.amount;
+      map[mk].cats[e.category] = (map[mk].cats[e.category] || 0) + e.amount;
+    });
+    return Object.entries(map).sort((a, b) => b[0].localeCompare(a[0]));
+  }, [expenses]);
+
+  const todayTotal = useMemo(() => expenses.filter(e => e.date === TODAY).reduce((s, e) => s + e.amount, 0), [expenses]);
+  const mTotal = useMemo(() => expenses.filter(e => monthKey(e.date) === monthKey(TODAY)).reduce((s, e) => s + e.amount, 0), [expenses]);
+  const getCat = l => CATS.find(c => c.label === l) || CATS[7];
+
+  function addExpense() {
+    if (!eForm.amount || Number(eForm.amount) <= 0) return;
+    setExpenses(p => [{ id: Date.now(), date: eForm.date, amount: Number(eForm.amount), category: eForm.category, note: eForm.note.trim() }, ...p]);
+    setEForm({ date: TODAY, amount: "", category: "Food", note: "" });
+    setShowEForm(false);
+  }
+
+  function prevMonth() {
+    const [y, m] = dutyMonth.split("-").map(Number);
+    const d = new Date(y, m - 2, 1);
+    setDutyMonth(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`);
+  }
+  function nextMonth() {
+    const [y, m] = dutyMonth.split("-").map(Number);
+    const d = new Date(y, m, 1);
+    const next = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    if (next <= TODAY.slice(0, 7)) setDutyMonth(next);
+  }
+
+  const RS = "\u20B9";
+
+  return (
+    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f0c29,#302b63,#24243e)", fontFamily: "'DM Sans',sans-serif", color: "#fff", paddingBottom: 80 }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0}
+        .card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:16px;backdrop-filter:blur(10px)}
+        .mtab{flex:1;padding:13px 8px;border:none;background:transparent;color:rgba(255,255,255,.4);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;letter-spacing:.5px}
+        .mtab.on{color:#fff;border-bottom:3px solid #FF6B6B}
+        .stab{flex:1;padding:9px;border:none;background:transparent;color:rgba(255,255,255,.45);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+        .stab.on{background:rgba(255,255,255,.08);border-bottom:2px solid #FFE66D;color:#FFE66D}
+        .erow{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;background:rgba(255,255,255,.05);margin-bottom:7px;transition:background .2s}
+        .erow:hover{background:rgba(255,255,255,.09)}
+        .drow{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.04);margin-bottom:6px}
+        .drow.today{background:rgba(255,230,109,.07);border:1px solid rgba(255,230,109,.2)}
+        .chk{width:30px;height:30px;border-radius:8px;border:2px solid rgba(255,255,255,.2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .2s;flex-shrink:0;color:#fff}
+        .chk.p{background:#4ECDC4;border-color:#4ECDC4}
+        .chk.o{background:#C3A6FF;border-color:#C3A6FF}
+        .fab{position:fixed;bottom:26px;right:26px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#FFE66D,#FF6B6B);border:none;color:#1a1a2e;font-size:28px;font-weight:900;cursor:pointer;box-shadow:0 8px 28px rgba(255,107,107,.55);display:flex;align-items:center;justify-content:center;z-index:100;font-family:inherit;transition:transform .2s}
+        .fab:hover{transform:scale(1.1)}
+        .overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:flex-end;justify-content:center;animation:fi .2s}
+        .sheet{background:linear-gradient(180deg,#1e1b4b,#0f0c29);border:1px solid rgba(255,255,255,.15);border-radius:24px 24px 0 0;padding:24px 20px 40px;width:100%;max-width:480px;animation:su .3s;overflow-y:auto;max-height:92vh}
+        @keyframes fi{from{opacity:0}to{opacity:1}}
+        @keyframes su{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+        input,textarea{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;color:#fff;padding:11px 13px;font-size:15px;font-family:inherit;outline:none;transition:border-color .2s}
+        input:focus,textarea:focus{border-color:rgba(255,230,109,.6)}
+        .chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:2px solid transparent;background:rgba(255,255,255,.07);transition:all .2s}
+        .chip.on{background:rgba(255,230,109,.15);border-color:#FFE66D}
+        .sbtn{width:100%;padding:13px;border-radius:14px;border:none;background:linear-gradient(135deg,#FFE66D,#FF6B6B);color:#1a1a2e;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit}
+        .dbtn{flex:1;padding:11px;border-radius:12px;border:none;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:transform .15s}
+        .dbtn:hover{transform:scale(1.03)}
+        .cov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:400;display:flex;align-items:center;justify-content:center;animation:fi .2s}
+        .cbox{background:linear-gradient(145deg,#1e1b4b,#16133a);border:1px solid rgba(255,255,255,.15);border-radius:22px;padding:28px 24px;max-width:310px;width:90%;text-align:center}
+        .mnbtn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:8px;padding:6px 14px;cursor:pointer;font-family:inherit;font-size:13px}
+        .tbadge{font-size:11px;background:rgba(255,255,255,.1);border-radius:6px;padding:2px 7px;color:rgba(255,255,255,.6)}
+        .delbtn{background:rgba(255,80,80,.15);border:1px solid rgba(255,80,80,.3);color:#FF6B6B;border-radius:8px;padding:4px 10px;cursor:pointer;font-size:13px;font-family:inherit}
+      `}</style>
+
+      {/* HEADER */}
+      <div style={{ padding: "24px 20px 0" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", marginBottom: 3, textTransform: "uppercase", letterSpacing: 1 }}>Today</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "#FFE66D" }}>{fmtDate(TODAY)}</div>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", textTransform: "uppercase", letterSpacing: 1 }}>Month Total</div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: "#4ECDC4" }}>{RS}{mTotal.toLocaleString()}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* MAIN TABS */}
+      <div style={{ display: "flex", padding: "16px 20px 0", borderBottom: "1px solid rgba(255,255,255,.08)", marginTop: 14 }}>
+        <button className={`mtab ${tab === "expense" ? "on" : ""}`} onClick={() => setTab("expense")}>💸 Expenses</button>
+        <button className={`mtab ${tab === "duty" ? "on" : ""}`} onClick={() => setTab("duty")}>🏢 Duty</button>
+      </div>
+
+      {/* ══════ EXPENSE TAB ══════ */}
+      {tab === "expense" && (
+        <div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, padding: "16px 20px 0" }}>
+            <div className="card" style={{ padding: 16 }}>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 6, textTransform: "uppercase", letterSpacing: .5 }}>Today Spent</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: "#FF6B6B" }}>{RS}{todayTotal.toLocaleString()}</div>
+              <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginTop: 2 }}>{expenses.filter(e => e.date === TODAY).length} transactions</div>
+            </div>
+            <div className="card" style={{ padding: 16 }}>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 6, textTransform: "uppercase", letterSpacing: .5 }}>Total Days</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: "#C3A6FF" }}>{new Set(expenses.map(e => e.date)).size}</div>
+              <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginTop: 2 }}>{expenses.length} entries</div>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", padding: "14px 20px 0", gap: 4 }}>
+            <button className={`stab ${eTab === "daily" ? "on" : ""}`} onClick={() => setETab("daily")}>Daily</button>
+            <button className={`stab ${eTab === "monthly" ? "on" : ""}`} onClick={() => setETab("monthly")}>Monthly</button>
+          </div>
+
+          <div style={{ padding: "14px 20px" }}>
+            {eTab === "daily" && (
+              <div>
+                {byDate.length === 0 && <div style={{ textAlign: "center", color: "rgba(255,255,255,.3)", padding: "50px 0" }}><div style={{ fontSize: 36 }}>📭</div><div style={{ marginTop: 10, fontSize: 14 }}>No expenses yet. Tap + to add!</div></div>}
+                {byDate.map(([date, exps]) => {
+                  const dt = exps.reduce((s, e) => s + e.amount, 0);
+                  return (
+                    <div key={date} style={{ marginBottom: 18 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                        <div>
+                          <div style={{ fontSize: 12, fontWeight: 700, color: date === TODAY ? "#FFE66D" : "rgba(255,255,255,.65)" }}>{date === TODAY ? "🔴 Today" : fmtDate(date)}</div>
+                          {date === TODAY && <div style={{ fontSize: 10, color: "rgba(255,255,255,.3)" }}>{fmtDate(date)}</div>}
+                        </div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: "#4ECDC4" }}>{RS}{dt.toLocaleString()}</div>
+                      </div>
+                      {exps.map(e => {
+                        const cat = getCat(e.category);
+                        return (
+                          <div key={e.id} className="erow">
+                            <div style={{ width: 38, height: 38, borderRadius: 10, background: cat.color + "22", border: `1.5px solid ${cat.color}55`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>{cat.emoji}</div>
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ fontWeight: 600, fontSize: 13 }}>{e.category}</div>
+                              {e.note && <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{e.note}</div>}
+                            </div>
+                            <div style={{ fontWeight: 700, fontSize: 14, marginRight: 8 }}>{RS}{e.amount.toLocaleString()}</div>
+                            <button className="delbtn" onClick={() => setDelId(e.id)}>✕</button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+            {eTab === "monthly" && (
+              <div>
+                {byMonth.length === 0 && <div style={{ textAlign: "center", color: "rgba(255,255,255,.3)", padding: "50px 0" }}><div style={{ fontSize: 36 }}>📊</div><div style={{ marginTop: 10, fontSize: 14 }}>No data yet.</div></div>}
+                {byMonth.map(([mk, data]) => {
+                  const top = Object.entries(data.cats).sort((a, b) => b[1] - a[1]);
+                  const mx = top[0]?.[1] || 1;
+                  return (
+                    <div key={mk} className="card" style={{ padding: 18, marginBottom: 14 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 14 }}>
+                        <div style={{ fontWeight: 700, fontSize: 15 }}>{fmtMonthYear(mk + "-01")}</div>
+                        <div style={{ fontWeight: 800, fontSize: 18, color: "#FFE66D" }}>{RS}{data.total.toLocaleString()}</div>
+                      </div>
+                      <div style={{ borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 12 }}>
+                        {top.map(([cat, amt]) => {
+                          const info = getCat(cat);
+                          return (
+                            <div key={cat} style={{ marginBottom: 10 }}>
+                              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                                <span style={{ fontSize: 12 }}>{info.emoji} {cat}</span>
+                                <span style={{ fontSize: 12, fontWeight: 600 }}>{RS}{amt.toLocaleString()}</span>
+                              </div>
+                              <div style={{ background: "rgba(255,255,255,.08)", borderRadius: 10, height: 5, overflow: "hidden" }}>
+                                <div style={{ height: 5, borderRadius: 10, width: `${(amt / mx) * 100}%`, background: info.color, transition: "width .6s" }} />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+          <button className="fab" onClick={() => setShowEForm(true)}>+</button>
+        </div>
+      )}
+
+      {/* ══════ DUTY TAB ══════ */}
+      {tab === "duty" && (
+        <div style={{ padding: "16px 20px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
+            <div className="card" style={{ padding: 16 }}>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 6, textTransform: "uppercase", letterSpacing: .5 }}>Present Days</div>
+              <div style={{ fontSize: 30, fontWeight: 800, color: "#4ECDC4" }}>{presentCount}</div>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.35)", marginTop: 2 }}>21st to 20th cycle</div>
+            </div>
+            <div className="card" style={{ padding: 16 }}>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 6, textTransform: "uppercase", letterSpacing: .5 }}>OT Days</div>
+              <div style={{ fontSize: 30, fontWeight: 800, color: "#C3A6FF" }}>{otCount}</div>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,.35)", marginTop: 2 }}>16th to 15th cycle</div>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+            <button className="mnbtn" onClick={prevMonth}>&#8249; Prev</button>
+            <div style={{ fontWeight: 700, fontSize: 15 }}>{fmtMonthYear(dutyMonth + "-01")}</div>
+            <button className="mnbtn" onClick={nextMonth} style={{ opacity: dutyMonth >= TODAY.slice(0, 7) ? .3 : 1 }}>Next &#8250;</button>
+          </div>
+
+          <div style={{ display: "flex", gap: 16, marginBottom: 12, padding: "7px 12px", backgr
