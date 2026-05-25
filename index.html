@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +8,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b0d1a;--surf:#11152a;--card:#171c33;--card2:#1d2240;
-  --border:#252b48;--accent:#ffd166;--a2:#06d6a0;--a3:#a78bfa;--a4:#f9826c;
-  --blue:#4fc3f7;--text:#e8edf8;--muted:#6b7590;--red:#f87171;--green:#4ade80;
-  --ff:'Inter',sans-serif;--fd:'Sora',sans-serif;--fm:'JetBrains Mono',monospace;
+  --bg:#0e1117;
+  --surf:#161b2e;
+  --card:#1c2340;
+  --card2:#222849;
+  --border:#2e3660;
+  --accent:#7ee8a2;
+  --accent2:#80d4f5;
+  --accent3:#c4b5fd;
+  --accent4:#fda4af;
+  --yellow:#fde68a;
+  --text:#e8f0fe;
+  --muted:#7b8db0;
+  --red:#f87171;
+  --green:#4ade80;
+  --ff:'Inter',sans-serif;
+  --fd:'Sora',sans-serif;
+  --fm:'JetBrains Mono',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden}
@@ -20,13 +34,13 @@ body{font-family:var(--ff);background:var(--bg);color:var(--text);font-size:15px
 
 /* STICKERS */
 .stk-bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-.stk{position:absolute;opacity:.09;animation:floatUp linear infinite}
+.stk{position:absolute;opacity:.08;animation:floatUp linear infinite}
 @keyframes floatUp{0%{transform:translateY(110vh) rotate(0deg)}100%{transform:translateY(-150px) rotate(720deg)}}
 
-/* REG */
+/* ── REG ── */
 #sReg{
-  background:radial-gradient(ellipse at 20% 15%,rgba(167,139,250,.18) 0%,transparent 55%),
-             radial-gradient(ellipse at 80% 85%,rgba(255,209,102,.12) 0%,transparent 55%),var(--bg);
+  background:radial-gradient(ellipse at 20% 20%,rgba(126,232,162,.15) 0%,transparent 55%),
+             radial-gradient(ellipse at 80% 80%,rgba(128,212,245,.12) 0%,transparent 55%),var(--bg);
   align-items:center;justify-content:center;padding:24px 18px;
 }
 .reg-box{background:var(--surf);border:1px solid var(--border);border-radius:24px;
@@ -35,7 +49,7 @@ body{font-family:var(--ff);background:var(--bg);color:var(--text);font-size:15px
 .brand{text-align:center;margin-bottom:26px}
 .brand-ico{font-size:2.2rem;letter-spacing:3px;display:block;margin-bottom:10px}
 .brand h1{font-family:var(--fd);font-size:2rem;font-weight:800;
-  background:linear-gradient(135deg,var(--accent),var(--a4));
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .brand p{color:var(--muted);font-size:.8rem;margin-top:4px}
 .lbl{display:block;font-size:.72rem;font-weight:600;color:var(--muted);
@@ -43,59 +57,65 @@ body{font-family:var(--ff);background:var(--bg);color:var(--text);font-size:15px
 .inp{width:100%;padding:11px 14px;background:var(--card);border:1.5px solid var(--border);
   border-radius:11px;color:var(--text);font-family:var(--ff);font-size:.9rem;outline:none;
   transition:border-color .2s,box-shadow .2s}
-.inp:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,209,102,.1)}
+.inp:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(126,232,162,.12)}
 .inp::placeholder{color:var(--muted)}
 .err{color:var(--red);font-size:.76rem;margin-top:5px;min-height:16px}
 .btn{display:block;width:100%;padding:13px;margin-top:18px;
-  background:linear-gradient(135deg,var(--accent),#ffbe0b);color:#0b0d1a;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0e1117;
   border:none;border-radius:11px;font-family:var(--fd);font-size:.93rem;
   font-weight:700;cursor:pointer;transition:all .2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,209,102,.35)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(126,232,162,.3)}
 .btn:active{transform:translateY(0)}
 .sw{text-align:center;margin-top:13px;color:var(--muted);font-size:.8rem}
 .sw span{color:var(--accent);cursor:pointer;font-weight:600}
 
-/* WELCOME */
-#sWel{background:radial-gradient(ellipse at 50% 35%,rgba(6,214,160,.12) 0%,transparent 65%),var(--bg);
+/* ── WELCOME ── */
+#sWel{background:radial-gradient(ellipse at 50% 35%,rgba(196,181,253,.12) 0%,transparent 65%),var(--bg);
   align-items:center;justify-content:center;padding:32px 22px;text-align:center}
 .wc-em{font-size:3.8rem;display:block;margin-bottom:14px;animation:pop .6s cubic-bezier(.34,1.56,.64,1)}
 @keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
 .wc-name{font-family:var(--fd);font-size:2.3rem;font-weight:800;
-  background:linear-gradient(135deg,var(--a2),var(--blue));
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   margin-bottom:5px;animation:fu .5s .15s both}
 .wc-sub{color:var(--muted);font-size:.85rem;margin-bottom:26px;animation:fu .5s .25s both}
 @keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.q-box{background:var(--surf);border:1px solid var(--border);border-left:4px solid var(--a3);
+.q-box{background:var(--surf);border:1px solid var(--border);border-left:4px solid var(--accent3);
   border-radius:14px;padding:20px 22px;max-width:390px;margin:0 auto 26px;animation:fu .5s .35s both}
 .q-en{font-size:.97rem;line-height:1.7;font-style:italic}
 .q-tr{color:var(--accent);font-size:.78rem;margin-top:7px}
 
-/* MAIN */
+/* ── MAIN ── */
 #sMain{background:var(--bg)}
-.app-bar{background:var(--surf);border-bottom:1px solid var(--border);
+.app-bar{
+  background:linear-gradient(135deg,var(--surf),var(--card));
+  border-bottom:1px solid var(--border);
   padding:11px 15px;display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;z-index:50;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,.3)}
 .ab-l{display:flex;align-items:center;gap:10px}
-.av{width:38px;height:38px;border-radius:50%;flex-shrink:0;
-  background:linear-gradient(135deg,var(--accent),var(--a4));
+.av{width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--fd);font-weight:800;font-size:1rem;color:#0b0d1a;
-  overflow:hidden;cursor:pointer;border:2px solid var(--border)}
-.av img{width:100%;height:100%;object-fit:cover}
-.ab-name{font-family:var(--fd);font-weight:700;font-size:.93rem}
+  font-family:var(--fd);font-weight:800;font-size:1.05rem;color:#0e1117;
+  overflow:hidden;cursor:pointer;
+  border:2.5px solid var(--accent);
+  box-shadow:0 0 10px rgba(126,232,162,.3);
+  transition:box-shadow .3s}
+.av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.ab-name{font-family:var(--fd);font-weight:700;font-size:.95rem}
 .ab-tag{font-size:.68rem;color:var(--muted)}
 .ab-r{display:flex;gap:7px}
-.ico{width:35px;height:35px;border-radius:10px;background:var(--card);border:1px solid var(--border);
+.ico{width:36px;height:36px;border-radius:10px;background:var(--card);border:1px solid var(--border);
   display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.95rem;
   transition:all .2s;position:relative}
-.ico:hover{border-color:var(--accent)}
+.ico:hover{border-color:var(--accent);background:rgba(126,232,162,.08)}
 .ndot{width:7px;height:7px;border-radius:50%;background:var(--red);
   position:absolute;top:5px;right:5px;display:none}
-.mc{flex:1;overflow-y:auto;padding:13px 13px 88px;-webkit-overflow-scrolling:touch}
+.mc{flex:1;overflow-y:auto;padding:14px 14px 90px;-webkit-overflow-scrolling:touch}
 
 /* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--surf);
+.bnav{position:fixed;bottom:0;left:0;right:0;
+  background:linear-gradient(135deg,var(--surf),var(--card));
   border-top:1px solid var(--border);display:flex;z-index:50;
   padding-bottom:env(safe-area-inset-bottom,0)}
 .bni{flex:1;display:flex;flex-direction:column;align-items:center;
@@ -103,114 +123,145 @@ body{font-family:var(--ff);background:var(--bg);color:var(--text);font-size:15px
 .bni .bi{font-size:1.2rem;transition:filter .2s}
 .bni .bl{font-size:.62rem;color:var(--muted);transition:color .2s}
 .bni.act .bl{color:var(--accent)}
-.bni.act .bi{filter:drop-shadow(0 0 6px rgba(255,209,102,.7))}
+.bni.act .bi{filter:drop-shadow(0 0 6px rgba(126,232,162,.8))}
 
 /* CARDS */
-.card{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:15px;margin-bottom:11px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px}
 .ctitle{font-family:var(--fd);font-weight:700;font-size:.86rem;margin-bottom:11px;display:flex;align-items:center;gap:6px}
 .slbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);
   margin:16px 0 9px;display:flex;align-items:center;gap:6px}
 .slbl::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* COUNTDOWN */
-.cd-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:3px}
-.cdc{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:13px 10px;
+.cd-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
+.cdc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 10px;
   text-align:center;position:relative;overflow:hidden}
 .cdc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.cdc.day::after{background:linear-gradient(90deg,var(--accent),var(--a4))}
-.cdc.yr::after{background:linear-gradient(90deg,var(--blue),var(--a3))}
+.cdc.day::after{background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.cdc.yr::after{background:linear-gradient(90deg,var(--accent3),var(--accent4))}
 .cdl{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
 .cdv{font-family:var(--fm);font-size:1.65rem;font-weight:700;line-height:1}
-.cdc.day .cdv{color:var(--accent)}.cdc.yr .cdv{color:var(--blue)}
+.cdc.day .cdv{color:var(--accent)}.cdc.yr .cdv{color:var(--accent3)}
 .cds{font-size:.63rem;color:var(--muted);margin-top:3px}
 
 /* FOCUS */
-.fc{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:15px;
-  margin-bottom:11px;display:flex;align-items:center;gap:13px;cursor:pointer;transition:all .2s}
-.fc:hover{border-color:var(--a3)}.fc.on{border-color:var(--a3);background:rgba(167,139,250,.07)}
+.fc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;
+  margin-bottom:12px;display:flex;align-items:center;gap:13px;cursor:pointer;transition:all .2s}
+.fc:hover{border-color:var(--accent3)}.fc.on{border-color:var(--accent3);background:rgba(196,181,253,.07)}
 .fi{width:44px;height:44px;border-radius:13px;flex-shrink:0;
-  background:linear-gradient(135deg,#3d2a80,var(--a3));
+  background:linear-gradient(135deg,#3d2a80,var(--accent3));
   display:flex;align-items:center;justify-content:center;font-size:1.25rem}
 .finfo{flex:1}.finfo h3{font-family:var(--fd);font-weight:700;font-size:.88rem;margin-bottom:2px}
 .finfo p{font-size:.72rem;color:var(--muted)}
 .ftog{width:44px;height:25px;border-radius:13px;background:var(--card2);border:1.5px solid var(--border);
   position:relative;transition:all .3s;flex-shrink:0}
-.ftog.on{background:var(--a3);border-color:var(--a3)}
+.ftog.on{background:var(--accent3);border-color:var(--accent3)}
 .ftog::after{content:'';position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;
   background:#fff;transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.3)}
 .ftog.on::after{transform:translateX(19px)}
-.fb{background:rgba(167,139,250,.09);border:1px solid rgba(167,139,250,.28);
-  border-radius:12px;padding:11px 13px;margin-bottom:11px;display:flex;align-items:center;gap:11px}
-.fbt{font-family:var(--fm);color:var(--a3);font-weight:700;font-size:1.05rem}
+.fb{background:rgba(196,181,253,.09);border:1px solid rgba(196,181,253,.28);
+  border-radius:12px;padding:11px 13px;margin-bottom:12px;display:flex;align-items:center;gap:11px}
+.fbt{font-family:var(--fm);color:var(--accent3);font-weight:700;font-size:1.05rem}
 .fbs{background:rgba(248,113,113,.13);border:1px solid rgba(248,113,113,.28);
   color:var(--red);border-radius:8px;padding:5px 9px;cursor:pointer;font-size:.73rem;white-space:nowrap}
 
-/* EXAM CHIPS */
+/* EXAM */
 .etabs{display:flex;gap:7px;margin-bottom:11px}
 .etab{padding:6px 15px;border-radius:20px;background:var(--card2);border:1.5px solid var(--border);
   color:var(--muted);font-size:.76rem;cursor:pointer;transition:all .2s;font-family:var(--ff)}
-.etab.act{background:rgba(255,209,102,.11);border-color:var(--accent);color:var(--accent)}
-.echips{display:flex;flex-wrap:wrap;gap:6px}
+.etab.act{background:rgba(126,232,162,.11);border-color:var(--accent);color:var(--accent)}
+.echips{display:flex;flex-wrap:wrap;gap:6px;max-height:220px;overflow-y:auto}
 .ec{padding:6px 12px;border-radius:20px;background:var(--card2);border:1.5px solid var(--border);
   color:var(--text);font-size:.76rem;cursor:pointer;transition:all .2s}
-.ec.sel{background:rgba(255,209,102,.13);border-color:var(--accent);color:var(--accent)}
+.ec.sel{background:rgba(126,232,162,.13);border-color:var(--accent);color:var(--accent)}
 .ec:hover{border-color:var(--muted)}
 
 /* SYLLABUS */
-.sylc{background:var(--card);border:1px solid var(--border);border-radius:15px;overflow:hidden;margin-bottom:11px}
-.sylh{padding:11px 15px;background:var(--card2);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.ebadge{background:rgba(255,209,102,.13);color:var(--accent);border:1px solid rgba(255,209,102,.28);
+.sylc{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:12px}
+.sylh{padding:12px 15px;background:var(--card2);border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.ebadge{background:rgba(126,232,162,.13);color:var(--accent);border:1px solid rgba(126,232,162,.28);
   padding:2px 9px;border-radius:20px;font-size:.7rem;font-weight:600}
-
-/* SUBJECT ROW — tick based */
 .sr{padding:13px 15px;border-bottom:1px solid var(--border);
   display:flex;align-items:flex-start;gap:12px;transition:background .15s}
 .sr:last-child{border-bottom:none}
 .sr.done-row{background:rgba(74,222,128,.04)}
-
-/* Big Tick Box */
-.tick-box{
-  width:28px;height:28px;border-radius:8px;flex-shrink:0;
+.tick-box{width:28px;height:28px;border-radius:8px;flex-shrink:0;
   border:2px solid var(--border);background:transparent;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
-  font-size:1rem;transition:all .25s;margin-top:2px;
-}
-.tick-box.on{
-  background:var(--green);border-color:var(--green);
-  box-shadow:0 0 12px rgba(74,222,128,.4);
-}
+  font-size:1rem;transition:all .25s;margin-top:2px}
+.tick-box.on{background:var(--green);border-color:var(--green);
+  box-shadow:0 0 12px rgba(74,222,128,.4)}
 .tick-box.on::after{content:'✓';color:#fff;font-weight:700;font-size:.95rem}
-
 .si{flex:1;min-width:0}
-.snum-badge{
-  display:inline-block;padding:1px 7px;border-radius:6px;
-  font-size:.68rem;font-weight:700;margin-bottom:4px;
-}
+.snum-badge{display:inline-block;padding:1px 7px;border-radius:6px;
+  font-size:.68rem;font-weight:700;margin-bottom:4px}
 .sn{font-size:.85rem;font-weight:600;margin-bottom:3px}
 .sn.done-txt{text-decoration:line-through;color:var(--green)}
 .stopic{font-size:.68rem;color:var(--muted);line-height:1.5;margin-bottom:4px}
 .sbar{height:5px;background:var(--card2);border-radius:3px;overflow:hidden;margin-bottom:2px}
 .sfill{height:100%;border-radius:3px;background:var(--green);transition:width .4s}
-.swt-badge{
-  flex-shrink:0;font-size:.72rem;font-weight:700;
+.swt-badge{flex-shrink:0;font-size:.72rem;font-weight:700;
   padding:3px 8px;border-radius:20px;margin-top:3px;
-  background:rgba(255,209,102,.1);color:var(--accent);border:1px solid rgba(255,209,102,.2);
-  white-space:nowrap;
-}
-
-/* QUAL BOX */
-.qual-box{background:rgba(6,214,160,.07);border:1px solid rgba(6,214,160,.25);border-radius:12px;
-  padding:12px 14px;margin-bottom:11px}
-.qual-box h4{font-family:var(--fd);font-weight:700;font-size:.82rem;color:var(--a2);margin-bottom:7px}
+  background:rgba(126,232,162,.1);color:var(--accent);border:1px solid rgba(126,232,162,.2);
+  white-space:nowrap}
+.qual-box{background:rgba(128,212,245,.07);border:1px solid rgba(128,212,245,.25);border-radius:12px;
+  padding:12px 14px;margin-bottom:12px}
+.qual-box h4{font-family:var(--fd);font-weight:700;font-size:.82rem;color:var(--accent2);margin-bottom:7px}
 .qual-row{font-size:.78rem;line-height:1.7;color:var(--text)}
-
-/* OVERALL PROGRESS BAR */
-.prog-header{
-  display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;
-}
 .prog-bar-big{height:8px;background:var(--card2);border-radius:4px;overflow:hidden;margin-bottom:4px}
-.prog-fill-big{height:100%;border-radius:4px;transition:width .5s;background:linear-gradient(90deg,var(--a2),var(--accent))}
+.prog-fill-big{height:100%;border-radius:4px;transition:width .5s;
+  background:linear-gradient(90deg,var(--accent),var(--accent2))}
+
+/* ── PLANT ANIMATION ── */
+.plant-section{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:16px;margin-bottom:12px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.plant-section::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+}
+.plant-title{font-family:var(--fd);font-weight:700;font-size:.86rem;margin-bottom:4px;
+  display:flex;align-items:center;justify-content:center;gap:6px}
+.plant-sub{font-size:.75rem;color:var(--muted);margin-bottom:14px}
+.plant-pot{
+  width:180px;height:200px;margin:0 auto;position:relative;
+}
+.pot-body{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:80px;height:50px;
+  background:linear-gradient(135deg,#8b5e3c,#6b4423);
+  border-radius:6px 6px 16px 16px;
+  border:2px solid #5a3318;
+}
+.pot-rim{
+  position:absolute;bottom:48px;left:50%;transform:translateX(-50%);
+  width:90px;height:14px;
+  background:linear-gradient(135deg,#a0714f,#7a5230);
+  border-radius:6px;border:2px solid #5a3318;
+}
+.pot-soil{
+  position:absolute;bottom:48px;left:50%;transform:translateX(-50%);
+  width:76px;height:10px;
+  background:#3d2b1f;border-radius:4px;margin-bottom:-2px;
+}
+/* Plant SVG grows based on progress */
+.plant-svg{
+  position:absolute;bottom:58px;left:50%;transform:translateX(-50%);
+  transition:all .8s cubic-bezier(.34,1.2,.64,1);
+}
+
+/* Stage labels */
+.plant-stage{
+  display:inline-block;margin-top:8px;
+  padding:4px 14px;border-radius:20px;font-size:.75rem;font-weight:600;
+  background:rgba(126,232,162,.12);color:var(--accent);border:1px solid rgba(126,232,162,.25);
+}
+.plant-pct{
+  font-family:var(--fm);font-size:1.5rem;font-weight:700;color:var(--accent);margin-bottom:2px;
+}
 
 /* PLAN */
 .prr{display:flex;justify-content:space-between;align-items:center;
@@ -227,34 +278,42 @@ body{font-family:var(--ff);background:var(--bg);color:var(--text);font-size:15px
 .tck.on{background:var(--green);border-color:var(--green);color:#fff}
 .ttx{flex:1;min-width:0}
 .tt{font-size:.85rem;font-weight:500;margin-bottom:2px}
-.td{font-size:.71rem;color:var(--muted)}
+.td2{font-size:.71rem;color:var(--muted)}
 .tdl{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.88rem;padding:2px}
 .tdl:hover{color:var(--red)}
 
 /* BOTTOM QUOTE */
 .bq{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--accent);
-  border-radius:15px;padding:15px;margin-bottom:11px;text-align:center}
+  border-radius:16px;padding:15px;margin-bottom:12px;text-align:center}
 .bqe{font-size:.88rem;font-style:italic;line-height:1.65;margin-bottom:6px}
 .bqb{font-size:.74rem;color:var(--accent)}
-.strow{text-align:center;font-size:1.35rem;letter-spacing:5px;padding:5px 0;opacity:.2;margin-bottom:7px}
+.strow{text-align:center;font-size:1.35rem;letter-spacing:5px;padding:5px 0;opacity:.18;margin-bottom:7px}
 
 /* PROFILE */
-.prof-card{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:18px;margin-bottom:11px}
-.prof-av{width:80px;height:80px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--a4));
+.prof-wrap{text-align:center;margin-bottom:14px;position:relative;display:inline-block}
+.prof-av{width:88px;height:88px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--fd);font-weight:800;font-size:2rem;color:#0b0d1a;
-  margin:0 auto 10px;overflow:hidden;border:3px solid var(--accent);cursor:pointer;position:relative}
+  font-family:var(--fd);font-weight:800;font-size:2.2rem;color:#0e1117;
+  margin:0 auto;overflow:hidden;
+  border:3px solid var(--accent);
+  box-shadow:0 0 20px rgba(126,232,162,.3);
+  cursor:pointer}
 .prof-av img{width:100%;height:100%;object-fit:cover}
-.prof-edit{position:absolute;bottom:0;right:0;background:var(--accent);color:#0b0d1a;
-  width:24px;height:24px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-size:.75rem;border:2px solid var(--bg)}
-.prof-name{font-family:var(--fd);font-weight:700;font-size:1.1rem;text-align:center;margin-bottom:3px}
-.prof-phone{font-size:.78rem;color:var(--muted);text-align:center;margin-bottom:14px}
+.prof-edit{position:absolute;bottom:2px;right:2px;background:var(--accent);color:#0e1117;
+  width:26px;height:26px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:.8rem;border:2px solid var(--bg);cursor:pointer}
+.prof-name{font-family:var(--fd);font-weight:700;font-size:1.15rem;margin-bottom:3px}
+.prof-phone{font-size:.78rem;color:var(--muted);margin-bottom:14px}
 .prof-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.ps-item{background:var(--card2);border-radius:10px;padding:10px 6px;text-align:center}
+.ps-item{background:var(--card2);border-radius:10px;padding:10px 6px;text-align:center;border:1px solid var(--border)}
 .ps-val{font-family:var(--fm);font-size:1.1rem;font-weight:700;color:var(--accent)}
 .ps-lbl{font-size:.65rem;color:var(--muted);margin-top:2px}
+
+/* EDIT FIELD */
+.edit-row{display:flex;gap:8px;margin-bottom:9px}
+.edit-row .inp{flex:1;margin-top:0}
+.edit-row .sbtn{margin-top:0;padding:11px 14px;white-space:nowrap}
 
 /* INPUTS */
 .minsel{width:100%;padding:10px 12px;background:var(--card2);border:1.5px solid var(--border);
@@ -267,13 +326,14 @@ input[type=datetime-local]::-webkit-calendar-picker-indicator{filter:invert(.55)
 input[type=range]{accent-color:var(--accent);width:100%}
 .rrow{display:flex;align-items:center;gap:9px;margin-bottom:13px}
 .rv{font-family:var(--fm);color:var(--accent);font-weight:700;min-width:55px;text-align:center}
-.sbtn{padding:10px 20px;background:var(--accent);color:#0b0d1a;border:none;border-radius:11px;
+.sbtn{padding:10px 20px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#0e1117;border:none;border-radius:11px;
   font-family:var(--fd);font-size:.83rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:12px}
-.sbtn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,209,102,.3)}
+.sbtn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(126,232,162,.25)}
 .sbtn.full{width:100%}
 .sbtn.sec{background:var(--card2);color:var(--text);border:1.5px solid var(--border)}
 .sbtn.sec:hover{border-color:var(--accent);box-shadow:none}
-.sbtn.red{background:rgba(248,113,113,.15);color:var(--red);border:1.5px solid rgba(248,113,113,.3)}
+.sbtn.red{background:rgba(248,113,113,.12);color:var(--red);border:1.5px solid rgba(248,113,113,.3)}
 
 /* MODALS */
 .modal{display:none;position:fixed;inset:0;z-index:200;
@@ -288,8 +348,10 @@ input[type=range]{accent-color:var(--accent);width:100%}
 .tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:16px}
 .tc{padding:9px 5px;border-radius:9px;text-align:center;font-size:.78rem;
   background:var(--card2);border:1.5px solid var(--border);cursor:pointer;transition:all .2s}
-.tc:hover{border-color:var(--a3)}.tc.sel{background:rgba(167,139,250,.14);border-color:var(--a3);color:var(--a3)}
-.mbtn{width:100%;padding:13px;background:var(--a3);color:#fff;border:none;border-radius:11px;
+.tc:hover{border-color:var(--accent3)}.tc.sel{background:rgba(196,181,253,.14);border-color:var(--accent3);color:var(--accent3)}
+.mbtn{width:100%;padding:13px;
+  background:linear-gradient(135deg,var(--accent3),var(--accent2));
+  color:#0e1117;border:none;border-radius:11px;
   font-family:var(--fd);font-size:.93rem;font-weight:700;cursor:pointer;transition:all .2s}
 .mbtn:hover{transform:translateY(-1px)}
 .mc2{width:100%;padding:10px;background:none;border:none;color:var(--muted);
@@ -310,7 +372,7 @@ input[type=range]{accent-color:var(--accent);width:100%}
 <div class="stk-bg" id="stkBg"></div>
 <div class="toast" id="toast"></div>
 
-<!-- REGISTRATION -->
+<!-- ══ REGISTRATION ══ -->
 <div class="scr on" id="sReg">
   <div class="reg-box">
     <div class="brand">
@@ -343,7 +405,7 @@ input[type=range]{accent-color:var(--accent);width:100%}
   </div>
 </div>
 
-<!-- WELCOME -->
+<!-- ══ WELCOME ══ -->
 <div class="scr" id="sWel">
   <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:30px 22px">
     <div>
@@ -359,7 +421,7 @@ input[type=range]{accent-color:var(--accent);width:100%}
   </div>
 </div>
 
-<!-- MAIN -->
+<!-- ══ MAIN ══ -->
 <div class="scr" id="sMain">
   <div class="app-bar">
     <div class="ab-l">
@@ -418,242 +480,238 @@ input[type=range]{accent-color:var(--accent);width:100%}
 <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="handlePhoto(event)">
 
 <script>
-/* ════════════════════════════════════
-   EXAM DATABASE
-════════════════════════════════════ */
+/* ════════════ EXAM DATA ════════════ */
 const SE=[
-  {name:"WBCS",qual:"Bachelor's Degree (any discipline). Age: 21–36 years. Max 6 attempts (General).",
-   s:[{n:"Indian History & Culture",w:18,t:"Ancient, Medieval, Modern India; Freedom Movement; Art & Architecture; Post-independence consolidation"},
-      {n:"Geography",w:15,t:"Physical Geography, Indian Geography, World Geography, Climate, Natural Resources, Disaster Management"},
-      {n:"Indian Polity & Constitution",w:15,t:"Constitution, Fundamental Rights, DPSP, Parliament, President, Judiciary, Local Governance, RTI"},
-      {n:"Economy",w:12,t:"Indian Economy, Budget, Banking, Inflation, GDP, Five Year Plans, Agriculture, Poverty"},
-      {n:"Bengali Language",w:10,t:"Grammar, Comprehension, Vocabulary, Essay, Translation, Sentence Correction"},
+  {name:"WBCS",qual:"Bachelor's Degree (any discipline). Age: 21–36 years.",
+   s:[{n:"Indian History & Culture",w:18,t:"Ancient, Medieval, Modern India; Freedom Movement; Art & Architecture"},
+      {n:"Geography",w:15,t:"Physical Geography, Indian Geography, World Geography, Climate, Resources"},
+      {n:"Indian Polity & Constitution",w:15,t:"Constitution, Fundamental Rights, DPSP, Parliament, Judiciary, Local Governance"},
+      {n:"Economy",w:12,t:"Indian Economy, Budget, Banking, Inflation, GDP, Five Year Plans"},
+      {n:"Bengali Language",w:10,t:"Grammar, Comprehension, Vocabulary, Essay, Translation"},
       {n:"English Language",w:10,t:"Grammar, Comprehension, Vocabulary, Precis, Essay, Error Detection"},
-      {n:"General Science",w:8,t:"Physics, Chemistry, Biology — basic concepts, Science in everyday life, Current Science"},
-      {n:"Mathematics",w:7,t:"Arithmetic, Algebra, Geometry, Mensuration, Trigonometry, Statistics"},
-      {n:"Computer Awareness",w:5,t:"MS Office, Internet, Hardware basics, Networking, Cyber Security basics"}]},
-  {name:"WB Police SI",qual:"Bachelor's Degree. Age: 20–27 years. Physical fitness & medical test required.",
-   s:[{n:"Reasoning Ability",w:25,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Direction Sense, Syllogism, Venn Diagram"},
-      {n:"Mathematics",w:20,t:"Arithmetic, Percentage, Profit-Loss, Time-Work, Simple & Compound Interest, Mensuration, Data Interpretation"},
-      {n:"English Language",w:15,t:"Grammar, Comprehension, Vocabulary, Fill in the blanks, Error Detection, Synonyms, Antonyms"},
-      {n:"Bengali Language",w:15,t:"Grammar, Comprehension, Vocabulary, Translation, Sentence Correction"},
-      {n:"General Knowledge",w:15,t:"Current Affairs, History, Geography, Science, Polity, Sports, Awards, WB GK"},
-      {n:"Computer Knowledge",w:10,t:"Basics of Computer, MS Office, Internet, Networking, Input/Output Devices"}]},
+      {n:"General Science",w:8,t:"Physics, Chemistry, Biology — basic concepts, Science in everyday life"},
+      {n:"Mathematics",w:7,t:"Arithmetic, Algebra, Geometry, Mensuration, Statistics"},
+      {n:"Computer Awareness",w:5,t:"MS Office, Internet, Hardware basics, Networking"}]},
+  {name:"WB Police SI",qual:"Bachelor's Degree. Age: 20–27 years. Physical fitness test required.",
+   s:[{n:"Reasoning Ability",w:25,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Direction Sense, Syllogism"},
+      {n:"Mathematics",w:20,t:"Arithmetic, Percentage, Profit-Loss, Time-Work, Simple & Compound Interest, Mensuration"},
+      {n:"English Language",w:15,t:"Grammar, Comprehension, Vocabulary, Fill in the blanks, Error Detection"},
+      {n:"Bengali Language",w:15,t:"Grammar, Comprehension, Vocabulary, Translation"},
+      {n:"General Knowledge",w:15,t:"Current Affairs, History, Geography, Science, Polity, Sports, WB GK"},
+      {n:"Computer Knowledge",w:10,t:"Basics of Computer, MS Office, Internet, Networking"}]},
   {name:"WB Police Constable",qual:"Class 12 pass. Age: 18–27 years. Physical test required.",
-   s:[{n:"General Knowledge & Awareness",w:30,t:"Current Affairs, History, Geography, Science, Sports, WB General Knowledge"},
+   s:[{n:"General Knowledge & Awareness",w:30,t:"Current Affairs, History, Geography, Science, Sports, WB GK"},
       {n:"Elementary Mathematics",w:25,t:"Arithmetic, Percentage, Profit-Loss, Simple Interest, Time-Distance, Mensuration"},
-      {n:"Reasoning",w:25,t:"Series, Coding-Decoding, Blood Relations, Direction Sense, Analogy, Odd One Out"},
-      {n:"Bengali/English Language",w:20,t:"Basic Grammar, Comprehension, Vocabulary, Fill in the blanks"}]},
-  {name:"WB TET (Upper Primary)",qual:"Graduation with 50%+ marks & B.Ed / D.El.Ed. Age: 18–40 years.",
-   s:[{n:"Child Development & Pedagogy",w:30,t:"Child Psychology, Learning Theories (Piaget, Vygotsky), Inclusive Education, Assessment, Motivation"},
-      {n:"Language-I Bengali",w:30,t:"Bengali Grammar, Reading Comprehension, Pedagogy of Language Teaching, Acquisition"},
-      {n:"Language-II English",w:30,t:"English Grammar, Reading Comprehension, Pedagogy of English Language Teaching"},
-      {n:"Mathematics / Science",w:10,t:"Basic Maths concepts OR Science concepts as per subject specialization, Pedagogy"}]},
+      {n:"Reasoning",w:25,t:"Series, Coding-Decoding, Blood Relations, Direction, Analogy"},
+      {n:"Bengali/English Language",w:20,t:"Basic Grammar, Comprehension, Vocabulary"}]},
+  {name:"WB TET (Upper Primary)",qual:"Graduation with 50%+ & B.Ed / D.El.Ed. Age: 18–40 years.",
+   s:[{n:"Child Development & Pedagogy",w:30,t:"Child Psychology, Learning Theories (Piaget, Vygotsky), Inclusive Education, Assessment"},
+      {n:"Language-I Bengali",w:30,t:"Bengali Grammar, Comprehension, Pedagogy of Language Teaching"},
+      {n:"Language-II English",w:30,t:"English Grammar, Comprehension, Pedagogy of Language Teaching"},
+      {n:"Mathematics / Science",w:10,t:"Basic Maths / Science concepts as per specialization, Pedagogy"}]},
   {name:"WB Primary TET",qual:"Class 12 with 50%+ & D.El.Ed / B.Ed. Age: 18–40 years.",
-   s:[{n:"Child Psychology & Pedagogy",w:30,t:"Development stages, Learning theories, Motivation, Inclusive Education, Assessment"},
+   s:[{n:"Child Psychology & Pedagogy",w:30,t:"Development stages, Learning theories, Motivation, Inclusive Education"},
       {n:"Bengali Language",w:30,t:"Grammar, Comprehension, Vocabulary, Language Teaching Pedagogy"},
-      {n:"Environmental Studies",w:20,t:"Family, Food, Plants, Animals, Water, Travel, Things we make, EVS Pedagogy"},
-      {n:"Mathematics",w:20,t:"Number System, Basic Operations, Shapes, Measurement, Data Handling, Maths Pedagogy"}]},
+      {n:"Environmental Studies",w:20,t:"Family, Food, Plants, Animals, Water, Travel, EVS Pedagogy"},
+      {n:"Mathematics",w:20,t:"Number System, Basic Operations, Shapes, Measurement, Data Handling"}]},
   {name:"WBPSC Clerkship",qual:"Bachelor's Degree. Age: 18–40 years.",
-   s:[{n:"Mathematics",w:25,t:"Arithmetic, Number System, Percentage, Ratio, Time-Work, Mensuration, Data Interpretation"},
-      {n:"General Knowledge",w:25,t:"Current Affairs, Indian History, Geography, Polity, Science, Sports, WB Affairs"},
-      {n:"English Language",w:20,t:"Grammar, Vocabulary, Comprehension, Synonyms, Antonyms, Sentence Correction"},
-      {n:"Reasoning",w:20,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Syllogism, Direction"},
-      {n:"Computer Knowledge",w:10,t:"MS Office, Internet basics, Input/Output devices, Operating System, Networking"}]},
+   s:[{n:"Mathematics",w:25,t:"Arithmetic, Number System, Percentage, Ratio, Time-Work, Mensuration"},
+      {n:"General Knowledge",w:25,t:"Current Affairs, History, Geography, Polity, Science, Sports"},
+      {n:"English Language",w:20,t:"Grammar, Vocabulary, Comprehension, Synonyms, Antonyms"},
+      {n:"Reasoning",w:20,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles"},
+      {n:"Computer Knowledge",w:10,t:"MS Office, Internet basics, Input/Output devices, Operating System"}]},
   {name:"WB SSC Group-C",qual:"Bachelor's Degree. Age: 18–40 years.",
-   s:[{n:"Mathematics",w:25,t:"Arithmetic, Algebra, Geometry, Mensuration, Statistics, Trigonometry, Data Interpretation"},
-      {n:"General Knowledge",w:25,t:"Current Affairs, History, Geography, Polity, Science, Economy, WB GK"},
-      {n:"English Language",w:20,t:"Grammar, Comprehension, Vocabulary, Error Detection, Fill in the blanks"},
-      {n:"Bengali Language",w:15,t:"Grammar, Comprehension, Translation, Vocabulary, Sentence Correction"},
-      {n:"Reasoning",w:15,t:"Analogy, Series, Coding-Decoding, Puzzles, Syllogism, Blood Relations, Direction"}]},
+   s:[{n:"Mathematics",w:25,t:"Arithmetic, Algebra, Geometry, Mensuration, Statistics"},
+      {n:"General Knowledge",w:25,t:"Current Affairs, History, Geography, Polity, Science, Economy"},
+      {n:"English Language",w:20,t:"Grammar, Comprehension, Vocabulary, Error Detection"},
+      {n:"Bengali Language",w:15,t:"Grammar, Comprehension, Translation, Vocabulary"},
+      {n:"Reasoning",w:15,t:"Analogy, Series, Coding-Decoding, Puzzles, Syllogism"}]},
   {name:"WB SSC Group-D",qual:"Class 8 pass. Age: 18–40 years.",
-   s:[{n:"General Knowledge",w:30,t:"Current Affairs, History, Geography, Science, Sports, WB General Knowledge"},
-      {n:"Elementary Mathematics",w:25,t:"Basic Arithmetic, Number System, Percentage, Profit-Loss, Simple Interest"},
-      {n:"Reasoning",w:25,t:"Series, Analogy, Coding-Decoding, Direction Sense, Blood Relations, Odd One Out"},
-      {n:"Bengali / English",w:20,t:"Basic Grammar, Comprehension, Vocabulary, Fill in the blanks"}]},
-  {name:"WBPSC Miscellaneous",qual:"Bachelor's Degree. Age: 18–36 years. Varies by post.",
+   s:[{n:"General Knowledge",w:30,t:"Current Affairs, History, Geography, Science, Sports, WB GK"},
+      {n:"Elementary Mathematics",w:25,t:"Basic Arithmetic, Number System, Percentage, Profit-Loss"},
+      {n:"Reasoning",w:25,t:"Series, Analogy, Coding-Decoding, Direction, Blood Relations"},
+      {n:"Bengali / English",w:20,t:"Basic Grammar, Comprehension, Vocabulary"}]},
+  {name:"WBPSC Miscellaneous",qual:"Bachelor's Degree. Age: 18–36 years.",
    s:[{n:"General Studies",w:40,t:"History, Geography, Polity, Economy, Science, Current Affairs, WB Affairs"},
-      {n:"English Language",w:20,t:"Grammar, Comprehension, Vocabulary, Essay, Precis Writing"},
-      {n:"Mathematics",w:20,t:"Arithmetic, Algebra, Statistics, Mensuration, Probability, Data Interpretation"},
-      {n:"Reasoning",w:20,t:"Logical Reasoning, Analytical Ability, Coding-Decoding, Blood Relations, Puzzles"}]},
+      {n:"English Language",w:20,t:"Grammar, Comprehension, Vocabulary, Essay, Precis"},
+      {n:"Mathematics",w:20,t:"Arithmetic, Algebra, Statistics, Mensuration, Probability"},
+      {n:"Reasoning",w:20,t:"Logical Reasoning, Coding-Decoding, Blood Relations, Puzzles"}]},
 ];
-
 const CE=[
-  {name:"UPSC CSE",qual:"Bachelor's Degree (any discipline). Age: 21–32 years. Max 6 attempts (General).",
-   s:[{n:"Indian History & Culture",w:18,t:"Ancient India, Medieval India, Modern History, Freedom Struggle, Art & Culture, Post-independence"},
-      {n:"Geography",w:15,t:"Physical Geography, Indian Geography, World Geography, Climate Change, Natural Resources, Disaster Mgmt"},
+  {name:"UPSC CSE",qual:"Bachelor's Degree (any discipline). Age: 21–32 years. Max 6 attempts.",
+   s:[{n:"Indian History & Culture",w:18,t:"Ancient, Medieval, Modern India; Freedom Struggle; Art & Culture; Post-independence"},
+      {n:"Geography",w:15,t:"Physical Geography, Indian Geography, World Geography, Climate Change, Natural Resources"},
       {n:"Indian Polity & Governance",w:15,t:"Constitution, Federalism, Parliament, Judiciary, Local Governance, RTI, e-Governance"},
-      {n:"Economy",w:12,t:"Inclusive Growth, Planning, Poverty, Agriculture, Industry, Infrastructure, Banking, Budget"},
-      {n:"International Relations",w:10,t:"India & Neighbours, Foreign Policy, UN & International Bodies, Bilateral Relations"},
-      {n:"General Science & Technology",w:10,t:"Physics, Chemistry, Biology basics, Biotechnology, Space, Defence Technology, IT"},
-      {n:"Environment & Ecology",w:8,t:"Biodiversity, Conservation, Pollution, Climate Change, Environmental Laws, Disaster Mgmt"},
-      {n:"Mathematics (CSAT)",w:7,t:"Arithmetic, Algebra, Data Interpretation, Basic Statistics, Permutation & Combination"},
-      {n:"English (CSAT)",w:5,t:"Comprehension, Communication, Logical Reasoning, Decision Making, Interpersonal Skills"}]},
+      {n:"Economy",w:12,t:"Inclusive Growth, Planning, Poverty, Agriculture, Industry, Banking, Budget"},
+      {n:"International Relations",w:10,t:"India & Neighbours, Foreign Policy, UN & International Bodies"},
+      {n:"General Science & Technology",w:10,t:"Physics, Chemistry, Biology basics, Biotechnology, Space, Defence Technology"},
+      {n:"Environment & Ecology",w:8,t:"Biodiversity, Conservation, Pollution, Climate Change, Environmental Laws"},
+      {n:"Mathematics (CSAT)",w:7,t:"Arithmetic, Algebra, Data Interpretation, Basic Statistics"},
+      {n:"English (CSAT)",w:5,t:"Comprehension, Communication, Logical Reasoning, Decision Making"}]},
   {name:"SSC CGL",qual:"Bachelor's Degree. Age: 18–32 years (varies by post).",
-   s:[{n:"Quantitative Aptitude",w:25,t:"Number System, Percentage, Profit-Loss, Ratio, Time-Work, Time-Distance, Algebra, Geometry, Trigonometry, Mensuration, Statistics, Data Interpretation"},
-      {n:"English Language",w:25,t:"Vocabulary, Grammar, Sentence Structure, Synonyms, Antonyms, Fill in the blanks, Error Detection, Reading Comprehension, Cloze Test, Para Jumbles"},
+   s:[{n:"Quantitative Aptitude",w:25,t:"Number System, Percentage, Profit-Loss, Ratio, Time-Work, Time-Distance, Algebra, Geometry, Trigonometry, Mensuration, Statistics, DI"},
+      {n:"English Language",w:25,t:"Vocabulary, Grammar, Synonyms, Antonyms, Fill in the blanks, Error Detection, Comprehension, Cloze Test, Para Jumbles"},
       {n:"General Awareness",w:25,t:"History, Geography, Polity, Economy, Science, Current Affairs, Static GK, Sports, Awards"},
-      {n:"General Intelligence & Reasoning",w:25,t:"Analogy, Series, Coding-Decoding, Blood Relations, Syllogism, Puzzles, Matrix, Venn Diagram, Missing Numbers, Visual Reasoning"}]},
+      {n:"General Intelligence & Reasoning",w:25,t:"Analogy, Series, Coding-Decoding, Blood Relations, Syllogism, Puzzles, Matrix, Venn Diagram, Visual Reasoning"}]},
   {name:"SSC CHSL",qual:"Class 12 pass. Age: 18–27 years.",
-   s:[{n:"Quantitative Aptitude",w:25,t:"Number System, Percentage, Ratio, Profit-Loss, Average, Time-Work, Time-Distance, Mensuration, Basic Algebra"},
-      {n:"English Language",w:25,t:"Vocabulary, Grammar, Error Spotting, Fill in the blanks, Reading Comprehension, Para Jumbles, Cloze Test"},
+   s:[{n:"Quantitative Aptitude",w:25,t:"Number System, Percentage, Ratio, Profit-Loss, Average, Time-Work, Time-Distance, Mensuration, Algebra"},
+      {n:"English Language",w:25,t:"Vocabulary, Grammar, Error Spotting, Fill in the blanks, Comprehension, Para Jumbles, Cloze Test"},
       {n:"General Awareness",w:25,t:"Current Affairs, History, Geography, Polity, Science, Economy, Sports, Awards"},
       {n:"General Intelligence & Reasoning",w:25,t:"Analogy, Series, Coding-Decoding, Blood Relations, Direction, Puzzles, Syllogism, Matrix"}]},
   {name:"SSC GD Constable",qual:"Class 10 pass. Age: 18–23 years. Physical & Medical test required.",
-   s:[{n:"General Knowledge & Awareness",w:30,t:"Current Affairs, History, Geography, Science, Polity, Economy, Sports, Books & Authors, Abbreviations"},
+   s:[{n:"General Knowledge & Awareness",w:30,t:"Current Affairs, History, Geography, Science, Polity, Economy, Sports, Books & Authors"},
       {n:"Elementary Mathematics",w:25,t:"Number System, LCM-HCF, Percentage, Profit-Loss, Simple Interest, Average, Ratio, Time-Work, Mensuration"},
-      {n:"General Intelligence & Reasoning",w:25,t:"Analogy, Odd One Out, Series, Coding-Decoding, Direction Sense, Blood Relations, Venn Diagram, Non-Verbal Reasoning"},
-      {n:"English / Hindi Language",w:20,t:"Vocabulary, Grammar, Synonyms, Antonyms, Fill in the blanks, Error Detection, Reading Comprehension"}]},
+      {n:"General Intelligence & Reasoning",w:25,t:"Analogy, Odd One Out, Series, Coding-Decoding, Direction, Blood Relations, Venn Diagram"},
+      {n:"English / Hindi Language",w:20,t:"Vocabulary, Grammar, Synonyms, Antonyms, Fill in the blanks, Error Detection, Comprehension"}]},
   {name:"SSC MTS",qual:"Class 10 pass. Age: 18–25 years.",
    s:[{n:"General Awareness",w:30,t:"Current Affairs, History, Geography, Science, Polity, Economy, Sports, Culture"},
-      {n:"Reasoning & Problem Solving",w:30,t:"Analogy, Series, Odd One Out, Coding-Decoding, Direction, Blood Relations, Puzzles, Spatial Reasoning"},
-      {n:"Numerical & Mathematical Ability",w:25,t:"Number System, Fraction, LCM-HCF, Percentage, Average, Profit-Loss, Simple Interest, Ratio, Time-Work"},
-      {n:"English Language",w:15,t:"Vocabulary, Grammar, Fill in the blanks, Error Detection, Reading Comprehension"}]},
+      {n:"Reasoning & Problem Solving",w:30,t:"Analogy, Series, Odd One Out, Coding-Decoding, Direction, Blood Relations, Puzzles"},
+      {n:"Numerical & Mathematical Ability",w:25,t:"Number System, LCM-HCF, Percentage, Average, Profit-Loss, Simple Interest, Ratio"},
+      {n:"English Language",w:15,t:"Vocabulary, Grammar, Fill in the blanks, Error Detection, Comprehension"}]},
   {name:"SSC CPO (SI Delhi Police)",qual:"Bachelor's Degree. Age: 20–25 years. Physical test required.",
-   s:[{n:"General Knowledge & Awareness",w:25,t:"Current Affairs, History, Geography, Polity, Science, Economy, Sports, Awards, Static GK"},
-      {n:"Quantitative Aptitude",w:25,t:"Number System, Percentage, Ratio, Profit-Loss, Time-Work, Time-Distance, Algebra, Geometry, Mensuration, Data Interpretation"},
-      {n:"General Intelligence & Reasoning",w:25,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Syllogism, Direction, Non-Verbal Reasoning"},
-      {n:"English Comprehension",w:25,t:"Reading Comprehension, Fill in the blanks, Vocabulary, Grammar, Error Detection, Cloze Test, Para Jumbles"}]},
+   s:[{n:"General Knowledge & Awareness",w:25,t:"Current Affairs, History, Geography, Polity, Science, Economy, Sports, Static GK"},
+      {n:"Quantitative Aptitude",w:25,t:"Number System, Percentage, Ratio, Profit-Loss, Time-Work, Algebra, Geometry, Mensuration, DI"},
+      {n:"General Intelligence & Reasoning",w:25,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Syllogism, Direction"},
+      {n:"English Comprehension",w:25,t:"Comprehension, Fill in the blanks, Vocabulary, Grammar, Error Detection, Cloze Test"}]},
   {name:"SSC Stenographer",qual:"Class 12 pass. Stenography skill test required. Age: 18–27 years.",
-   s:[{n:"General Intelligence & Reasoning",w:34,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Direction, Syllogism, Matrix, Non-Verbal Reasoning"},
-      {n:"General Awareness",w:33,t:"Current Affairs, History, Geography, Polity, Science, Economy, Sports, Books & Authors"},
-      {n:"English Language & Comprehension",w:33,t:"Vocabulary, Grammar, Synonyms, Antonyms, Fill in the blanks, Error Detection, Reading Comprehension, Idioms & Phrases"}]},
+   s:[{n:"General Intelligence & Reasoning",w:34,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Direction, Syllogism, Matrix"},
+      {n:"General Awareness",w:33,t:"Current Affairs, History, Geography, Polity, Science, Economy, Sports"},
+      {n:"English Language & Comprehension",w:33,t:"Vocabulary, Grammar, Synonyms, Antonyms, Fill in the blanks, Error Detection, Comprehension, Idioms"}]},
   {name:"SSC JE Civil",qual:"Diploma / Degree in Civil Engineering. Age: 18–32 years.",
-   s:[{n:"Building Materials",w:8,t:"Types of stone, brick, cement, concrete, timber, steel, glass, plastics, composites"},
-      {n:"Estimating, Costing & Valuation",w:8,t:"Units of measurement, estimation of buildings, roads, earthworks, valuation methods"},
-      {n:"Surveying",w:8,t:"Chain surveying, compass surveying, levelling, theodolite, contouring, area & volume calculation"},
-      {n:"Soil Mechanics",w:8,t:"Soil classification, compaction, permeability, shear strength, bearing capacity, slope stability"},
-      {n:"Hydraulics & Fluid Mechanics",w:8,t:"Properties of fluids, Bernoulli's theorem, flow measurement, pipe flow, open channel flow"},
-      {n:"Irrigation Engineering",w:6,t:"Water requirements of crops, canals, weirs, barrages, dams, water logging"},
-      {n:"Transportation Engineering",w:6,t:"Highway design, pavement design, traffic engineering, railway & bridge basics"},
-      {n:"Environmental Engineering",w:4,t:"Water supply, sanitation, sewage treatment, solid waste management, air pollution"},
-      {n:"Structural Engineering",w:4,t:"Theory of structures, RCC design basics, steel design basics, bricks & masonry"},
-      {n:"General Intelligence & Reasoning",w:20,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Direction, Syllogism"},
-      {n:"General Awareness",w:20,t:"Current Affairs, History, Geography, Polity, Science, Economy, Sports"}]},
+   s:[{n:"Building Materials",w:8,t:"Stone, Brick, Cement, Concrete, Timber, Steel, Glass, Plastics, Composites"},
+      {n:"Estimating, Costing & Valuation",w:8,t:"Units, Estimation of buildings, roads, earthworks, valuation methods"},
+      {n:"Surveying",w:8,t:"Chain survey, Compass survey, Levelling, Theodolite, Contouring, Area & Volume"},
+      {n:"Soil Mechanics",w:8,t:"Soil classification, Compaction, Permeability, Shear strength, Bearing capacity"},
+      {n:"Hydraulics & Fluid Mechanics",w:8,t:"Properties of Fluid, Bernoulli's theorem, Flow measurement, Pipe flow, Open channel"},
+      {n:"Irrigation Engineering",w:6,t:"Water requirements of crops, Canals, Weirs, Barrages, Dams"},
+      {n:"Transportation Engineering",w:6,t:"Highway design, Pavement design, Traffic engineering, Railway & Bridge basics"},
+      {n:"Environmental Engineering",w:4,t:"Water supply, Sanitation, Sewage treatment, Solid waste, Air pollution"},
+      {n:"Structural Engineering",w:4,t:"Theory of structures, RCC design basics, Steel design basics"},
+      {n:"General Intelligence & Reasoning",w:20,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Syllogism"},
+      {n:"General Awareness",w:20,t:"Current Affairs, History, Geography, Polity, Science, Economy"}]},
   {name:"SSC JE Electrical",qual:"Diploma / Degree in Electrical Engineering. Age: 18–32 years.",
-   s:[{n:"Basic Electrical Engineering",w:12,t:"Ohm's Law, KVL, KCL, AC circuits, power factor, three-phase circuits, transformers"},
-      {n:"Electrical Machines",w:12,t:"DC machines, Induction motors, Synchronous machines, Single-phase motors, transformers"},
-      {n:"Power Systems",w:10,t:"Transmission & distribution, cables, substations, protection, earthing, tariffs"},
-      {n:"Control Systems",w:6,t:"Open & closed loop systems, transfer functions, time response, stability, Bode plot"},
-      {n:"Electrical Measurements",w:6,t:"Measuring instruments, errors, bridges, CRO, energy meters, transducers"},
-      {n:"Electronics & Communication",w:6,t:"Diodes, transistors, amplifiers, oscillators, digital electronics, communication basics"},
-      {n:"Electrical Installation",w:8,t:"Wiring systems, lighting, earthing, IE rules, safety, energy conservation"},
-      {n:"General Intelligence & Reasoning",w:20,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Direction, Syllogism"},
-      {n:"General Awareness",w:20,t:"Current Affairs, History, Geography, Polity, Science, Economy, Sports"}]},
+   s:[{n:"Basic Electrical Engineering",w:12,t:"Ohm's Law, KVL, KCL, AC circuits, Power factor, Three-phase circuits, Transformers"},
+      {n:"Electrical Machines",w:12,t:"DC machines, Induction motors, Synchronous machines, Single-phase motors"},
+      {n:"Power Systems",w:10,t:"Transmission & Distribution, Cables, Substations, Protection, Earthing, Tariffs"},
+      {n:"Control Systems",w:6,t:"Open & closed loop systems, Transfer functions, Time response, Stability, Bode plot"},
+      {n:"Electrical Measurements",w:6,t:"Measuring instruments, Errors, Bridges, CRO, Energy meters, Transducers"},
+      {n:"Electronics & Communication",w:6,t:"Diodes, Transistors, Amplifiers, Oscillators, Digital electronics, Communication basics"},
+      {n:"Electrical Installation",w:8,t:"Wiring systems, Lighting, Earthing, IE rules, Safety, Energy conservation"},
+      {n:"General Intelligence & Reasoning",w:20,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Syllogism"},
+      {n:"General Awareness",w:20,t:"Current Affairs, History, Geography, Polity, Science, Economy"}]},
   {name:"SSC JE Mechanical",qual:"Diploma / Degree in Mechanical Engineering. Age: 18–32 years.",
-   s:[{n:"Fluid Mechanics & Hydraulic Machines",w:12,t:"Properties of Fluid, Pascal's Law, Bernoulli's Equation, Viscosity, Flow through Pipes, Pumps, Turbines, Hydraulic Machines, Cavitation"},
-      {n:"Thermodynamics",w:12,t:"Zeroth, First & Second Laws of Thermodynamics, Rankine Cycle, Carnot Cycle, Otto Cycle, Diesel Cycle, Air Standard Cycles, Steam Properties, Nozzles, Compressors, Refrigeration"},
-      {n:"Theory of Machines",w:10,t:"Kinematics & Dynamics of Machines, Gears & Gear Trains, Cams & Followers, Governors, Flywheel, Balancing of Rotating & Reciprocating Masses, Vibrations"},
-      {n:"Strength of Materials",w:10,t:"Stress-Strain, Elastic Constants, Shear Force & Bending Moment Diagrams, Torsion, Deflection of Beams, Thin & Thick Cylinders, Columns & Struts, Springs"},
-      {n:"Manufacturing Engineering",w:8,t:"Casting, Welding, Forging, Sheet Metal Working, Metal Cutting & Machining Processes, Grinding, CNC, Jigs & Fixtures, Tolerances"},
-      {n:"Machine Design",w:8,t:"Design of Joints (Riveted, Welded, Bolted), Shafts, Keys, Couplings, Bearings, Flywheels, Belt Drives, Gear Design"},
-      {n:"Industrial Engineering",w:7,t:"Production Planning & Control, Work Study, Plant Layout, Inventory Control, PERT-CPM, Quality Control, TQM"},
-      {n:"Engineering Materials",w:5,t:"Mechanical & Physical Properties of Metals, Alloys, Heat Treatment (Annealing, Quenching, Tempering), Composites, Non-Metallic Materials"},
-      {n:"General Intelligence & Reasoning",w:20,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Direction, Syllogism, Non-Verbal Reasoning"},
-      {n:"General Awareness",w:8,t:"Current Affairs, History, Geography, Polity, Science, Economy, Sports"}]},
+   s:[{n:"Fluid Mechanics & Hydraulic Machines",w:12,t:"Properties of Fluid, Pascal's Law, Bernoulli's Equation, Viscosity, Flow through Pipes, Pumps, Turbines, Cavitation"},
+      {n:"Thermodynamics",w:12,t:"Laws of Thermodynamics, Rankine Cycle, Carnot Cycle, Otto & Diesel Cycles, Steam Properties, Nozzles, Compressors, Refrigeration & AC"},
+      {n:"Theory of Machines",w:10,t:"Kinematics & Dynamics, Gears & Gear Trains, Cams, Governors, Flywheel, Balancing, Vibrations"},
+      {n:"Strength of Materials",w:10,t:"Stress-Strain, Elastic Constants, SFD & BMD, Torsion, Deflection of Beams, Thin Cylinders, Columns, Springs"},
+      {n:"Manufacturing Engineering",w:8,t:"Casting, Welding, Forging, Sheet Metal, Metal Cutting, Grinding, CNC, Jigs & Fixtures"},
+      {n:"Machine Design",w:8,t:"Design of Joints (Riveted, Welded, Bolted), Shafts, Keys, Couplings, Bearings, Belt Drives"},
+      {n:"Industrial Engineering",w:7,t:"Production Planning, Work Study, Inventory Control, PERT-CPM, Quality Control, TQM"},
+      {n:"Engineering Materials",w:5,t:"Properties of Metals, Alloys, Heat Treatment, Composites, Non-Metallic Materials"},
+      {n:"General Intelligence & Reasoning",w:20,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Syllogism"},
+      {n:"General Awareness",w:8,t:"Current Affairs, History, Geography, Polity, Science, Economy"}]},
   {name:"RRB NTPC",qual:"Bachelor's Degree / Class 12 (varies by post). Age: 18–33 years.",
-   s:[{n:"General Awareness & Current Affairs",w:40,t:"Current Events, History, Geography, Polity, Economy, Science, Computer, Railways, Sports, Culture, Books & Authors"},
-      {n:"Mathematics",w:30,t:"Number System, Decimals, Fractions, LCM-HCF, Ratio, Percentage, Mensuration, Time-Work, Time-Distance, Simple & Compound Interest, Profit-Loss, Algebra, Geometry, Trigonometry, Statistics"},
-      {n:"General Intelligence & Reasoning",w:30,t:"Analogy, Number & Alphabetical Series, Coding-Decoding, Mathematical Operations, Similarities, Differences, Relationships, Jumbling, Venn Diagram, Data Sufficiency"}]},
+   s:[{n:"General Awareness & Current Affairs",w:40,t:"Current Events, History, Geography, Polity, Economy, Science, Computer, Railways, Sports, Culture"},
+      {n:"Mathematics",w:30,t:"Number System, LCM-HCF, Ratio, Percentage, Mensuration, Time-Work, Time-Distance, Algebra, Geometry, Trigonometry, Statistics, DI"},
+      {n:"General Intelligence & Reasoning",w:30,t:"Analogy, Number & Alphabetical Series, Coding-Decoding, Mathematical Operations, Similarities, Differences, Jumbling, Venn Diagram"}]},
   {name:"RRB ALP (Asst. Loco Pilot)",qual:"Class 10 + ITI / Diploma in relevant trade. Age: 18–28 years.",
-   s:[{n:"General Science",w:30,t:"Physics: Motion, Work-Energy, Heat, Light, Sound, Electricity, Magnetism. Chemistry: Elements, Compounds, Reactions, Acids-Bases-Salts, Metals, Non-metals. Biology: Cell, Nutrition, Respiration, Reproduction, Environment, Human Body"},
-      {n:"General Intelligence & Reasoning",w:25,t:"Analogy, Alphabetical & Number Series, Coding-Decoding, Mathematical Operations, Blood Relations, Jumbling, Venn Diagram, Data Interpretation, Puzzles, Missing Numbers"},
-      {n:"Mathematics",w:20,t:"Number System, BODMAS, Decimals, Fractions, LCM-HCF, Ratio, Percentage, Mensuration, Time-Work, Time-Distance, Simple Interest, Profit-Loss, Algebra, Geometry, Trigonometry"},
-      {n:"General Awareness & Current Affairs",w:15,t:"Science & Technology, Sports, Culture, Personalities, Economics, Politics, Current Events, History, Geography, Railway GK"},
-      {n:"Technical Ability (Trade Specific)",w:10,t:"Based on ITI Trade: Electrician / Fitter / Mechanic / Electronic — trade-specific technical questions"}]},
+   s:[{n:"General Science",w:30,t:"Physics: Motion, Work, Heat, Light, Sound, Electricity, Magnetism. Chemistry: Elements, Reactions, Acids-Bases, Metals. Biology: Cell, Nutrition, Respiration, Reproduction"},
+      {n:"General Intelligence & Reasoning",w:25,t:"Analogy, Series, Coding-Decoding, Mathematical Operations, Blood Relations, Jumbling, Venn Diagram, Puzzles"},
+      {n:"Mathematics",w:20,t:"Number System, BODMAS, Decimals, LCM-HCF, Ratio, Percentage, Mensuration, Time-Work, Time-Distance, Algebra, Geometry, Trigonometry"},
+      {n:"General Awareness & Current Affairs",w:15,t:"Science & Technology, Sports, Culture, Personalities, Economics, Politics, History, Geography, Railway GK"},
+      {n:"Technical Ability (Trade Specific)",w:10,t:"Based on ITI Trade: Electrician / Fitter / Mechanic / Electronic — trade-specific questions"}]},
   {name:"RRB JE (Junior Engineer)",qual:"Diploma / Degree in relevant Engineering. Age: 18–33 years.",
-   s:[{n:"Technical Subject (Mech/Civil/Elec/IT)",w:50,t:"Mechanical: Fluid Mechanics, Thermodynamics, SOM, TOM, Manufacturing Engineering | Civil: Structures, Soil Mechanics, Hydraulics, Transportation | Electrical: Circuits, Machines, Power Systems | IT: Programming, DBMS, Networking, OS"},
-      {n:"Mathematics",w:15,t:"Number System, Algebra, Geometry, Trigonometry, Statistics, Mensuration, Data Interpretation"},
-      {n:"General Intelligence & Reasoning",w:15,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Direction Sense, Syllogism, Venn Diagram"},
-      {n:"General Awareness",w:10,t:"Current Affairs, History, Geography, Polity, Science, Economy, Sports, Railway GK"},
+   s:[{n:"Technical Subject (Mech/Civil/Elec/IT)",w:50,t:"Mechanical: Fluid Mechanics, Thermodynamics, SOM, TOM, Manufacturing | Civil: Structures, Soil Mechanics, Hydraulics | Electrical: Circuits, Machines, Power Systems | IT: Programming, DBMS, Networking"},
+      {n:"Mathematics",w:15,t:"Number System, Algebra, Geometry, Trigonometry, Statistics, Mensuration, DI"},
+      {n:"General Intelligence & Reasoning",w:15,t:"Analogy, Series, Coding-Decoding, Blood Relations, Puzzles, Syllogism, Venn Diagram"},
+      {n:"General Awareness",w:10,t:"Current Affairs, History, Geography, Polity, Science, Economy, Railway GK"},
       {n:"General Science",w:10,t:"Physics, Chemistry, Biology — Class 10-12 level concepts"}]},
   {name:"RRB Group-D",qual:"Class 10 pass / ITI. Age: 18–33 years. Physical Efficiency Test required.",
-   s:[{n:"General Intelligence & Reasoning",w:30,t:"Analogy, Alphabetical & Number Series, Coding-Decoding, Mathematical Operations, Blood Relations, Jumbling, Venn Diagram, Conclusions & Decision Making, Similarities & Differences"},
-      {n:"General Science",w:25,t:"Physics: Basic laws, Motion, Sound, Light, Electricity. Chemistry: Periodic Table, Chemical Reactions, Metals, Acids-Bases. Biology: Cell, Nutrition, Diseases, Environment"},
-      {n:"Mathematics",w:25,t:"Number System, BODMAS, Decimals, Fractions, LCM-HCF, Ratio, Percentage, Mensuration, Time-Work, Time-Distance, Simple & Compound Interest, Profit-Loss, Algebra, Geometry"},
-      {n:"General Awareness & Current Affairs",w:20,t:"Science, Sports, Culture, Important Personalities, Economics, Politics, Current Events, History, Geography, Railway GK"}]},
+   s:[{n:"General Intelligence & Reasoning",w:30,t:"Analogy, Series, Coding-Decoding, Mathematical Operations, Blood Relations, Jumbling, Venn Diagram, Conclusions"},
+      {n:"General Science",w:25,t:"Physics: Basic laws, Motion, Sound, Light, Electricity. Chemistry: Periodic Table, Reactions, Metals, Acids-Bases. Biology: Cell, Nutrition, Diseases"},
+      {n:"Mathematics",w:25,t:"Number System, BODMAS, Decimals, LCM-HCF, Ratio, Percentage, Mensuration, Time-Work, Algebra, Geometry"},
+      {n:"General Awareness & Current Affairs",w:20,t:"Science, Sports, Culture, Personalities, Economics, Politics, Current Events, History, Geography, Railway GK"}]},
   {name:"RRB RPF Constable",qual:"Class 12 pass. Age: 18–25 years. Physical & Medical test required.",
-   s:[{n:"General Awareness",w:50,t:"Current Affairs, History, Geography, Polity, Economy, Science, Sports, Books & Authors, Awards, Railway General Knowledge"},
-      {n:"Arithmetic",w:35,t:"Number System, Percentage, Ratio, Average, Profit-Loss, Simple Interest, Time-Work, Time-Distance, Mensuration, Data Interpretation"},
-      {n:"General Intelligence & Reasoning",w:15,t:"Analogy, Series, Coding-Decoding, Blood Relations, Direction Sense, Syllogism, Missing Numbers"}]},
+   s:[{n:"General Awareness",w:50,t:"Current Affairs, History, Geography, Polity, Economy, Science, Sports, Books & Authors, Railway GK"},
+      {n:"Arithmetic",w:35,t:"Number System, Percentage, Ratio, Average, Profit-Loss, Simple Interest, Time-Work, Time-Distance, Mensuration, DI"},
+      {n:"General Intelligence & Reasoning",w:15,t:"Analogy, Series, Coding-Decoding, Blood Relations, Direction, Syllogism"}]},
   {name:"RRB RPF SI",qual:"Bachelor's Degree. Age: 20–25 years. Physical test required.",
-   s:[{n:"General Awareness",w:50,t:"Current Affairs, History, Geography, Polity, Economy, Science, Sports, Books & Authors, Awards, Railway GK"},
-      {n:"Arithmetic",w:35,t:"Number System, Percentage, Ratio, Average, Profit-Loss, Simple & Compound Interest, Time-Work, Time-Distance, Algebra, Mensuration, Data Interpretation"},
-      {n:"General Intelligence & Reasoning",w:15,t:"Analogy, Series, Coding-Decoding, Blood Relations, Direction Sense, Puzzles, Syllogism"}]},
+   s:[{n:"General Awareness",w:50,t:"Current Affairs, History, Geography, Polity, Economy, Science, Sports, Books, Awards, Railway GK"},
+      {n:"Arithmetic",w:35,t:"Number System, Percentage, Ratio, Average, Profit-Loss, Simple & Compound Interest, Algebra, Mensuration, DI"},
+      {n:"General Intelligence & Reasoning",w:15,t:"Analogy, Series, Coding-Decoding, Blood Relations, Direction, Puzzles, Syllogism"}]},
   {name:"IBPS PO",qual:"Bachelor's Degree. Age: 20–30 years.",
-   s:[{n:"Reasoning Ability",w:30,t:"Puzzle & Seating Arrangement, Syllogism, Inequality, Blood Relations, Direction, Coding-Decoding, Order & Ranking, Input-Output, Data Sufficiency, Floor-Based Puzzles"},
-      {n:"Quantitative Aptitude",w:25,t:"Data Interpretation (Charts, Tables, Graphs), Number Series, Arithmetic (Percentage, Ratio, Profit-Loss, Average, Time-Work, Distance, SI & CI, Quadratic Equations)"},
-      {n:"English Language",w:20,t:"Reading Comprehension, Cloze Test, Error Detection, Fill in the blanks, Para Jumbles, Sentence Correction, Word Swap, Phrase Replacement"},
-      {n:"General Awareness",w:15,t:"Banking Awareness, Financial Awareness, Current Affairs (last 3 months), Static GK, RBI, SEBI, Government Schemes"},
-      {n:"Computer Knowledge",w:10,t:"Basics of Computer, Internet, MS Office, Input/Output devices, Networking, Computer Languages, Database basics, Shortcuts"}]},
+   s:[{n:"Reasoning Ability",w:30,t:"Puzzle & Seating Arrangement, Syllogism, Inequality, Blood Relations, Direction, Coding-Decoding, Order & Ranking, Input-Output"},
+      {n:"Quantitative Aptitude",w:25,t:"Data Interpretation, Number Series, Arithmetic (Percentage, Ratio, Profit-Loss, Average, Time-Work, Distance, SI & CI, Quadratic Equations)"},
+      {n:"English Language",w:20,t:"Reading Comprehension, Cloze Test, Error Detection, Fill in the blanks, Para Jumbles, Sentence Correction, Word Swap"},
+      {n:"General Awareness",w:15,t:"Banking Awareness, Financial Awareness, Current Affairs, Static GK, RBI, SEBI, Government Schemes"},
+      {n:"Computer Knowledge",w:10,t:"Basics of Computer, Internet, MS Office, Networking, Computer Languages, Database basics"}]},
   {name:"IBPS Clerk",qual:"Bachelor's Degree. Age: 20–28 years.",
-   s:[{n:"Reasoning Ability",w:30,t:"Puzzle, Syllogism, Inequality, Blood Relations, Direction Sense, Coding-Decoding, Alphanumeric Series, Order & Ranking, Sitting Arrangement"},
-      {n:"Quantitative Aptitude",w:25,t:"Number Series, Data Interpretation, Arithmetic — Percentage, Ratio, Profit-Loss, Average, Time-Work, Speed-Distance, Simple & Compound Interest, Mensuration"},
-      {n:"English Language",w:25,t:"Reading Comprehension, Cloze Test, Error Detection, Fill in the blanks, Para Jumbles, Sentence Improvement, Word Rearrangement"},
-      {n:"General / Financial Awareness",w:20,t:"Current Affairs (last 3 months), Banking Awareness, Financial Institutions, Government Schemes, RBI Policies, Static GK"}]},
+   s:[{n:"Reasoning Ability",w:30,t:"Puzzle, Syllogism, Inequality, Blood Relations, Direction, Coding-Decoding, Alphanumeric Series, Sitting Arrangement"},
+      {n:"Quantitative Aptitude",w:25,t:"Number Series, Data Interpretation, Arithmetic — Percentage, Ratio, Profit-Loss, Average, Time-Work, Distance, Mensuration"},
+      {n:"English Language",w:25,t:"Reading Comprehension, Cloze Test, Error Detection, Fill in the blanks, Para Jumbles, Sentence Improvement"},
+      {n:"General / Financial Awareness",w:20,t:"Current Affairs, Banking Awareness, Financial Institutions, Government Schemes, RBI Policies, Static GK"}]},
   {name:"SBI PO",qual:"Bachelor's Degree. Age: 21–30 years.",
-   s:[{n:"Reasoning & Computer Aptitude",w:35,t:"Puzzle & Seating Arrangement, Syllogism, Inequality, Blood Relations, Direction, Coding, Input-Output, Computer Knowledge (Hardware, Software, Networking, Internet, MS Office, Shortcuts)"},
-      {n:"Data Analysis & Interpretation",w:25,t:"Data Interpretation (Bar Graph, Pie Chart, Line Graph, Table, Caselet), Data Sufficiency, Quantity Comparison, Number Series, Approximation"},
-      {n:"English Language",w:25,t:"Reading Comprehension, Vocabulary, Cloze Test, Error Detection, Para Jumbles, Sentence Completion, Word Usage, Fill in the blanks"},
-      {n:"General Economy & Banking Awareness",w:15,t:"Indian Economy, Banking System, RBI, SEBI, IRDAI, Government Schemes, Union Budget, Financial Inclusion, Current Affairs (last 3 months)"}]},
+   s:[{n:"Reasoning & Computer Aptitude",w:35,t:"Puzzle & Seating Arrangement, Syllogism, Inequality, Blood Relations, Direction, Coding, Input-Output, Computer Knowledge (Hardware, Software, Networking, MS Office)"},
+      {n:"Data Analysis & Interpretation",w:25,t:"Data Interpretation (Bar, Pie, Line, Table, Caselet), Data Sufficiency, Quantity Comparison, Number Series, Approximation"},
+      {n:"English Language",w:25,t:"Reading Comprehension, Vocabulary, Cloze Test, Error Detection, Para Jumbles, Sentence Completion, Word Usage"},
+      {n:"General Economy & Banking Awareness",w:15,t:"Indian Economy, Banking System, RBI, SEBI, IRDAI, Government Schemes, Budget, Financial Inclusion, Current Affairs"}]},
   {name:"SBI Clerk",qual:"Bachelor's Degree. Age: 20–28 years.",
-   s:[{n:"Reasoning Ability & Computer Aptitude",w:35,t:"Puzzle, Syllogism, Inequality, Blood Relations, Direction, Coding-Decoding, Alphanumeric Series, Computer Basics, MS Office, Internet, Shortcuts"},
-      {n:"Quantitative Aptitude",w:25,t:"Number Series, Data Interpretation, Arithmetic — Percentage, Ratio, Profit-Loss, Average, Time-Work, Distance, Simple & Compound Interest, Mensuration"},
+   s:[{n:"Reasoning Ability & Computer Aptitude",w:35,t:"Puzzle, Syllogism, Inequality, Blood Relations, Direction, Coding-Decoding, Computer Basics, MS Office, Internet"},
+      {n:"Quantitative Aptitude",w:25,t:"Number Series, Data Interpretation, Arithmetic — Percentage, Ratio, Profit-Loss, Average, Time-Work, Distance, SI & CI, Mensuration"},
       {n:"English Language",w:25,t:"Reading Comprehension, Cloze Test, Error Detection, Fill in the blanks, Para Jumbles, Sentence Correction, Vocabulary"},
-      {n:"General / Financial Awareness",w:15,t:"Current Affairs (last 3 months), Banking Awareness, Government Schemes, RBI, Financial Institutions, Static GK"}]},
-  {name:"NDA",qual:"Class 12 with PCM (for Army/Navy/Air Force). Age: 16.5–19.5 years. UPSC conducted.",
-   s:[{n:"Algebra",w:10,t:"Sets, Relations, Modulus, Quadratic Equations, Sequence & Series, Binomial Theorem, Logarithms, Permutation & Combination"},
-      {n:"Matrices & Determinants",w:8,t:"Types of Matrices, Matrix Operations, Determinants, Inverse, Cramers Rule"},
-      {n:"Trigonometry",w:8,t:"Angles, Trigonometric Ratios, Identities, Inverse Trigonometric Functions, Heights & Distances"},
-      {n:"Analytical Geometry",w:8,t:"Lines, Circles, Parabola, Ellipse, Hyperbola, 3D Geometry — Points, Lines, Planes"},
+      {n:"General / Financial Awareness",w:15,t:"Current Affairs, Banking Awareness, Government Schemes, RBI, Financial Institutions, Static GK"}]},
+  {name:"NDA",qual:"Class 12 with PCM (Army/Navy/Air Force). Age: 16.5–19.5 years. UPSC conducted.",
+   s:[{n:"Algebra",w:10,t:"Sets, Quadratic Equations, Sequence & Series, Binomial Theorem, Logarithms, Permutation & Combination"},
+      {n:"Matrices & Determinants",w:8,t:"Types of Matrices, Matrix Operations, Determinants, Inverse, Cramer's Rule"},
+      {n:"Trigonometry",w:8,t:"Angles, Trigonometric Ratios, Identities, Inverse Trig Functions, Heights & Distances"},
+      {n:"Analytical Geometry",w:8,t:"2D: Lines, Circles, Parabola, Ellipse, Hyperbola | 3D: Points, Lines, Planes"},
       {n:"Differential & Integral Calculus",w:8,t:"Limits, Continuity, Differentiation, Applications, Integration, Definite Integrals, Differential Equations"},
       {n:"Vector Algebra & Statistics",w:6,t:"Vectors, Dot & Cross Products, Statistics (Mean, Median, Mode, Variance), Probability"},
-      {n:"General Ability – English",w:20,t:"Grammar & Usage, Vocabulary, Comprehension, Cohesion — Fill in the blanks, Error Detection, Sentence Improvement"},
+      {n:"General Ability – English",w:20,t:"Grammar & Usage, Vocabulary, Comprehension — Fill in the blanks, Error Detection, Sentence Improvement"},
       {n:"General Knowledge (Physics)",w:10,t:"Motion, Work, Heat, Sound, Light, Electricity, Magnetism, Optics, Modern Physics"},
-      {n:"General Knowledge (GK)",w:12,t:"History (Freedom Movement, India), Geography, Current Events, Indian Culture, Science basics"}]},
-  {name:"CDS",qual:"Bachelor's Degree (specific branch per wing). Age: 19–25 years. UPSC conducted.",
-   s:[{n:"English Language",w:34,t:"Grammar (Parts of Speech, Tenses, Voice, Narration), Vocabulary, Spotting Errors, Fill in the blanks, Ordering of Words, Synonyms, Antonyms, Comprehension"},
-      {n:"General Knowledge",w:33,t:"Current Affairs, History, Geography, Polity, Economy, Science & Technology, Defence, Sports, Books & Authors"},
-      {n:"Elementary Mathematics",w:33,t:"Number System, LCM-HCF, Decimal Fractions, Percentage, Average, Ratio, Profit-Loss, Time-Work, Time-Distance, Geometry, Mensuration, Statistics, Algebra, Trigonometry"}]},
+      {n:"General Knowledge (General)",w:12,t:"History (Freedom Movement), Geography, Current Events, Indian Culture, Science basics"}]},
+  {name:"CDS",qual:"Bachelor's Degree (specific per wing). Age: 19–25 years. UPSC conducted.",
+   s:[{n:"English Language",w:34,t:"Grammar (Parts of Speech, Tenses, Voice, Narration), Vocabulary, Spotting Errors, Fill in the blanks, Synonyms, Antonyms, Comprehension"},
+      {n:"General Knowledge",w:33,t:"Current Affairs, History, Geography, Polity, Economy, Science & Technology, Defence, Sports"},
+      {n:"Elementary Mathematics",w:33,t:"Number System, LCM-HCF, Percentage, Average, Ratio, Profit-Loss, Time-Work, Time-Distance, Geometry, Mensuration, Statistics, Algebra, Trigonometry"}]},
   {name:"AFCAT",qual:"Bachelor's Degree with 60%+ marks (specific per branch). Age: 20–26 years.",
-   s:[{n:"General Awareness",w:30,t:"History, Geography, Polity, Economy, Science & Technology, Defence Awareness, Sports, Current Affairs, Books & Authors"},
+   s:[{n:"General Awareness",w:30,t:"History, Geography, Polity, Economy, Science & Technology, Defence Awareness, Sports, Current Affairs"},
       {n:"Verbal Ability in English",w:30,t:"Comprehension, Vocabulary, Error Detection, Analogies, Fill in the blanks, Idioms & Phrases, Sentence Completion"},
-      {n:"Numerical Ability",w:20,t:"Decimal & Fractions, Simple Interest & Compound Interest, Average, Profit-Loss, Percentage, Ratio & Proportion, Time-Work, Speed-Distance, Mensuration"},
-      {n:"Reasoning & Military Aptitude",w:20,t:"Verbal Skills, Spatial Ability, Pattern Recognition, Sequence & Series, Logical Reasoning, Coding-Decoding, Rotated Blocks, Hidden Figures"}]},
+      {n:"Numerical Ability",w:20,t:"Decimal & Fractions, Simple & Compound Interest, Average, Profit-Loss, Percentage, Ratio, Time-Work, Speed-Distance, Mensuration"},
+      {n:"Reasoning & Military Aptitude",w:20,t:"Verbal Skills, Spatial Ability, Pattern Recognition, Sequence & Series, Logical Reasoning, Coding-Decoding, Rotated Blocks"}]},
   {name:"CTET",qual:"Bachelor's Degree with B.Ed / D.El.Ed. Age: No upper limit.",
-   s:[{n:"Child Development & Pedagogy",w:30,t:"Concept of Development, Piaget, Vygotsky, Kohlberg, Learning Theories, Motivation, Inclusive Education, Assessment & Evaluation, Gender as a Social Construct"},
-      {n:"Language-I (Any)",w:30,t:"Language Comprehension, Vocabulary, Grammar, Pedagogy — Language Acquisition, Language Teaching Methods, Remedial Teaching"},
-      {n:"Language-II (Any)",w:30,t:"Language Comprehension, Vocabulary, Grammar, Pedagogy — Second Language Acquisition, Language Teaching Methods"},
-      {n:"Mathematics / EVS (Paper I)",w:10,t:"Number System, Basic Operations, Geometry, Measurement, Data Handling, Patterns, EVS — Family, Animals, Plants, Environment, EVS Pedagogy"}]},
-  {name:"CUET UG",qual:"Class 12 pass. For Central University admission. Age: No specific limit.",
-   s:[{n:"Domain Subject",w:40,t:"Based on chosen subject — Physics/Chemistry/Biology/Mathematics/Economics/History/Political Science/Geography — Class 12 level questions"},
-      {n:"English / Language Section",w:30,t:"Reading Comprehension, Literary Aptitude, Vocabulary, Grammar, Verbal Ability, Sentence Structure"},
-      {n:"General Test",w:30,t:"General Knowledge, Current Affairs, General Mental Ability, Numerical Ability, Quantitative Reasoning, Logical & Analytical Reasoning"}]},
+   s:[{n:"Child Development & Pedagogy",w:30,t:"Concept of Development, Piaget, Vygotsky, Kohlberg, Learning Theories, Motivation, Inclusive Education, Assessment"},
+      {n:"Language-I (Any)",w:30,t:"Language Comprehension, Vocabulary, Grammar, Pedagogy — Language Acquisition, Teaching Methods"},
+      {n:"Language-II (Any)",w:30,t:"Language Comprehension, Vocabulary, Grammar, Pedagogy — Second Language Teaching"},
+      {n:"Mathematics / EVS (Paper I)",w:10,t:"Number System, Geometry, Measurement, Data Handling, EVS — Family, Animals, Plants, Environment, Pedagogy"}]},
+  {name:"CUET UG",qual:"Class 12 pass. For Central University admission.",
+   s:[{n:"Domain Subject",w:40,t:"Based on chosen subject — Physics/Chemistry/Biology/Mathematics/Economics/History/Political Science — Class 12 level"},
+      {n:"English / Language Section",w:30,t:"Reading Comprehension, Literary Aptitude, Vocabulary, Grammar, Verbal Ability"},
+      {n:"General Test",w:30,t:"General Knowledge, Current Affairs, General Mental Ability, Numerical Ability, Logical & Analytical Reasoning"}]},
   {name:"LIC AAO",qual:"Bachelor's Degree (Engineering/CA/MBA/Law). Age: 21–30 years.",
-   s:[{n:"Reasoning Ability",w:30,t:"Puzzle & Seating Arrangement, Syllogism, Inequality, Blood Relations, Direction, Coding-Decoding, Order & Ranking, Input-Output, Data Sufficiency"},
-      {n:"Quantitative Aptitude",w:30,t:"Data Interpretation (Charts, Tables, Graphs), Number Series, Arithmetic — Percentage, Ratio, Profit-Loss, Average, Time-Work, Distance, Simple & Compound Interest"},
-      {n:"General Knowledge & Current Affairs",w:20,t:"Insurance Awareness, Banking Awareness, Current Affairs (last 3 months), Static GK, Economy, Government Schemes, Financial Institutions"},
-      {n:"English Language",w:20,t:"Reading Comprehension, Cloze Test, Error Detection, Fill in the blanks, Para Jumbles, Word Usage, Sentence Improvement"}]},
+   s:[{n:"Reasoning Ability",w:30,t:"Puzzle & Seating Arrangement, Syllogism, Inequality, Blood Relations, Direction, Coding-Decoding, Order & Ranking, Input-Output"},
+      {n:"Quantitative Aptitude",w:30,t:"Data Interpretation, Number Series, Arithmetic — Percentage, Ratio, Profit-Loss, Average, Time-Work, Distance, SI & CI"},
+      {n:"General Knowledge & Current Affairs",w:20,t:"Insurance Awareness, Banking Awareness, Current Affairs, Static GK, Economy, Government Schemes"},
+      {n:"English Language",w:20,t:"Reading Comprehension, Cloze Test, Error Detection, Fill in the blanks, Para Jumbles, Sentence Improvement"}]},
   {name:"Delhi Police Constable",qual:"Class 12 pass. Age: 18–25 years. Physical test required.",
-   s:[{n:"General Knowledge & Current Affairs",w:50,t:"Current Events, History, Geography, Indian Polity, Science, Economy, Sports, Books & Authors, Delhi-specific GK"},
-      {n:"Reasoning",w:25,t:"Analogy, Series, Coding-Decoding, Blood Relations, Direction, Syllogism, Puzzles, Non-Verbal Reasoning"},
-      {n:"Numerical Ability",w:25,t:"Number System, Percentage, Ratio, Average, Profit-Loss, Simple & Compound Interest, Time-Work, Mensuration, Data Interpretation"}]},
-  {name:"CLAT",qual:"Class 12 with 45%+ (40% for SC/ST). For Law (LLB) admission. Age: No upper limit.",
-   s:[{n:"Current Affairs & GK",w:25,t:"Current Events (last 1-2 years), Static GK, History, Geography, Economy, Science, Art & Culture, International Affairs"},
-      {n:"Legal Reasoning",w:25,t:"Legal Propositions, Applying Rules to Facts, Legal Principles, Contract, Tort, Constitutional Law basics, Legal Maxims"},
-      {n:"English Language",w:20,t:"Reading Comprehension, Vocabulary, Grammar, Fill in the blanks, Para Jumbles, Summary Writing"},
-      {n:"Logical Reasoning",w:20,t:"Critical Reasoning, Argument Analysis, Analogies, Inferences, Assumptions, Cause & Effect, Linear & Circular Arrangement"},
-      {n:"Quantitative Techniques",w:10,t:"Ratios, Fractions, Percentage, Basic Algebra, Mensuration, Statistics, Graphs, Data Interpretation"}]},
+   s:[{n:"General Knowledge & Current Affairs",w:50,t:"Current Events, History, Geography, Polity, Science, Economy, Sports, Delhi-specific GK"},
+      {n:"Reasoning",w:25,t:"Analogy, Series, Coding-Decoding, Blood Relations, Direction, Syllogism, Puzzles"},
+      {n:"Numerical Ability",w:25,t:"Number System, Percentage, Ratio, Average, Profit-Loss, Simple & Compound Interest, Time-Work, Mensuration"}]},
+  {name:"CLAT",qual:"Class 12 with 45%+ (40% for SC/ST). For LLB admission. Age: No upper limit.",
+   s:[{n:"Current Affairs & GK",w:25,t:"Current Events (last 1-2 years), Static GK, History, Geography, Economy, Science, Art & Culture"},
+      {n:"Legal Reasoning",w:25,t:"Legal Propositions, Applying Rules to Facts, Legal Principles, Contract, Tort, Constitutional Law basics"},
+      {n:"English Language",w:20,t:"Reading Comprehension, Vocabulary, Grammar, Fill in the blanks, Para Jumbles, Summary"},
+      {n:"Logical Reasoning",w:20,t:"Critical Reasoning, Argument Analysis, Analogies, Inferences, Assumptions, Cause & Effect"},
+      {n:"Quantitative Techniques",w:10,t:"Ratios, Fractions, Percentage, Basic Algebra, Mensuration, Statistics, Graphs, DI"}]},
 ];
-
 const ALL=[...SE,...CE];
 const QUOTES=[
   {e:"The secret of getting ahead is getting started.",t:"Translation: এগিয়ে যাওয়ার রহস্য হলো শুরু করা।"},
   {e:"Hard work beats talent when talent doesn't work hard.",t:"Translation: পরিশ্রম প্রতিভাকে হারায় যখন প্রতিভা পরিশ্রম করে না।"},
   {e:"Believe you can and you're halfway there.",t:"Translation: বিশ্বাস রাখো — সাফল্য অর্ধেক পথ এগিয়ে।"},
   {e:"Don't watch the clock; do what it does. Keep going.",t:"Translation: ঘড়ি দেখো না, ঘড়ির মতো চলতে থাকো।"},
-  {e:"Your future is created by what you do today, not tomorrow.",t:"Translation: তোমার ভবিষ্যৎ আজকের কাজে তৈরি হয়।"},
-  {e:"Success is the sum of small efforts repeated day in and day out.",t:"Translation: সাফল্য হলো প্রতিদিনের ছোট্ট প্রচেষ্টার সমষ্টি।"},
+  {e:"Your future is created by what you do today.",t:"Translation: তোমার ভবিষ্যৎ আজকের কাজে তৈরি হয়।"},
+  {e:"Success is the sum of small efforts repeated every day.",t:"Translation: সাফল্য হলো প্রতিদিনের ছোট্ট প্রচেষ্টার সমষ্টি।"},
 ];
 const BQUOTES=[
   {e:"Keep trying your best — success will surely follow.",t:"Translation: চেষ্টা করে যাও, সাফল্য মিলবেই! 💪"},
@@ -661,17 +719,17 @@ const BQUOTES=[
   {e:"Dream big, study hard, stay focused.",t:"Translation: বড় স্বপ্ন দেখো, কঠোর পড়াশোনা করো।"},
   {e:"The pain of studying is far less than the pain of regret.",t:"Translation: না পড়ার আফসোসের ব্যথা অনেক বেশি।"},
 ];
-const CLRS=['#ffd166','#f9826c','#4fc3f7','#a78bfa','#4ade80','#fb923c','#34d399','#60a5fa','#f472b6','#38bdf8','#fbbf24','#e879f9'];
+const CLRS=['#7ee8a2','#fda4af','#80d4f5','#c4b5fd','#fde68a','#86efac','#f9a8d4','#67e8f9','#d8b4fe','#a5f3fc'];
 
-/* ══════════ STATE ══════════ */
+/* ════════ STATE ════════ */
 let user=null,selEx=[],prog={},todos=[],notifs=[];
 let focOn=false,focEnd=null,focMins=60,focIv=null,cdIv=null,curTab='home',exTab='state';
 
-/* ══════════ INIT ══════════ */
+/* ════════ INIT ════════ */
 window.onload=()=>{
   buildStk();
-  const saved=ls('pt_session');
-  if(saved){user=JSON.parse(saved);loadUD();showMain()}
+  const saved=ls('pt_ses');
+  if(saved){user=JSON.parse(saved);loadUD();showMain();}
 };
 function loadUD(){
   selEx=JSON.parse(ls('pt_ex_'+user.phone)||'[]');
@@ -680,7 +738,7 @@ function loadUD(){
   notifs=JSON.parse(ls('pt_no_'+user.phone)||'[]');
 }
 function save(){
-  ss('pt_session',JSON.stringify(user));
+  ss('pt_ses',JSON.stringify(user));
   ss('pt_ex_'+user.phone,JSON.stringify(selEx));
   ss('pt_pg_'+user.phone,JSON.stringify(prog));
   ss('pt_td_'+user.phone,JSON.stringify(todos));
@@ -700,7 +758,7 @@ function buildStk(){
   }
 }
 
-/* ══════════ AUTH ══════════ */
+/* ════════ AUTH ════════ */
 function swForm(reg){
   document.getElementById('fReg').classList.toggle('hidden',!reg);
   document.getElementById('fLog').classList.toggle('hidden',reg);
@@ -728,11 +786,11 @@ function doLog(){
   user={name:ac[p].name,phone:p,photo:ac[p].photo||''};
   loadUD();save();showMain();
 }
-function doOut(){if(confirm('Log out?')){user=null;localStorage.removeItem('pt_session');show('sReg');swForm(true)}}
+function doOut(){if(confirm('Log out?')){user=null;localStorage.removeItem('pt_ses');show('sReg');swForm(true)}}
 function gv(id){return document.getElementById(id).value.trim()}
 function se(id,m){const e=document.getElementById(id);e.textContent=m;setTimeout(()=>e.textContent='',3500)}
 
-/* ══════════ SCREENS ══════════ */
+/* ════════ SCREENS ════════ */
 function show(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on')}
 function showWel(){
   show('sWel');
@@ -742,17 +800,30 @@ function showWel(){
   document.getElementById('wcT').textContent=q.t;
 }
 function goMain(){showMain()}
+
+/* ═══ KEY FIX: always refresh header after showMain ═══ */
 function showMain(){
   show('sMain');
+  refreshHeader();
+  renderTab('home');
+  startCD();
+  updNdot();
+}
+
+function refreshHeader(){
   const fn=user.name.split(' ')[0];
   document.getElementById('hNm').textContent=fn;
-  updAv();renderTab('home');startCD();updNdot();
+  const av=document.getElementById('hAv');
+  if(user.photo){
+    av.innerHTML=`<img src="${user.photo}" alt="">`;
+  } else {
+    av.innerHTML='';
+    av.textContent=user.name[0].toUpperCase();
+    av.style.fontSize='1.05rem';
+  }
 }
-function updAv(){
-  const el=document.getElementById('hAv');
-  if(user.photo){el.innerHTML=`<img src="${user.photo}" alt="">`;
-  }else{el.textContent=user.name[0].toUpperCase();el.style.fontSize='1rem'}
-}
+
+/* ════════ PHOTO ════════ */
 function handlePhoto(e){
   const file=e.target.files[0];if(!file)return;
   const r=new FileReader();
@@ -760,14 +831,16 @@ function handlePhoto(e){
     user.photo=x.target.result;
     const ac=JSON.parse(ls('pt_ac')||'{}');
     if(ac[user.phone])ac[user.phone].photo=x.target.result;
-    ss('pt_ac',JSON.stringify(ac));save();updAv();
+    ss('pt_ac',JSON.stringify(ac));
+    save();
+    refreshHeader(); /* ← always update header */
     if(curTab==='profile')renderTab('profile');
-    toast('✅ Photo updated!');
+    toast('✅ Profile photo updated!');
   };
   r.readAsDataURL(file);
 }
 
-/* ══════════ TABS ══════════ */
+/* ════════ TABS ════════ */
 function setTab(tab,el){
   curTab=tab;
   document.querySelectorAll('.bni').forEach(b=>b.classList.remove('act'));
@@ -781,10 +854,10 @@ function renderTab(t){
   else if(t==='plan')c.innerHTML=planH();
   else if(t==='todo')c.innerHTML=todoH();
   else if(t==='profile')c.innerHTML=profH();
-  if(t==='home'){renderCD();updFB()}
+  if(t==='home'){renderCD();updFB();}
 }
 
-/* ══════════ HOME ══════════ */
+/* ════════ HOME ════════ */
 function homeH(){
   const bq=BQUOTES[Math.floor(Math.random()*BQUOTES.length)];
   return`
@@ -792,8 +865,7 @@ function homeH(){
     <span style="font-size:1.25rem">🎯</span>
     <div style="flex:1"><div style="font-family:var(--fd);font-weight:700;font-size:.86rem;margin-bottom:1px">Focus Mode Active</div>
     <div style="font-size:.72rem;color:var(--muted)">Remaining: <span class="fbt" id="fbt">--:--</span></div></div>
-    <button class="fbs" onclick="stopFoc()">Stop</button>
-  </div>`:''}
+    <button class="fbs" onclick="stopFoc()">Stop</button></div>`:''}
   <div class="slbl">⏰ Time Tracker</div>
   <div class="cd-grid">
     <div class="cdc day"><div class="cdl">Day ends in</div><div class="cdv" id="cdD">--:--:--</div><div class="cds">hr : min : sec</div></div>
@@ -818,40 +890,36 @@ function miniTodo(){
   return items.slice(0,3).map(t=>`
     <div class="tr ${t.done?'done':''}">
       <div class="tck ${t.done?'on':''}" onclick="ckH('${t.id}')">${t.done?'✓':''}</div>
-      <div class="ttx"><div class="tt">${t.title}</div><div class="td">${fmt(t.dt)}</div></div>
+      <div class="ttx"><div class="tt">${t.title}</div><div class="td2">${fmt(t.dt)}</div></div>
     </div>`).join('');
 }
 function ckH(id){const t=todos.find(x=>x.id===id);if(t){t.done=!t.done;save();renderTab('home')}}
 
-/* ══════════ COUNTDOWN ══════════ */
-function startCD(){clearInterval(cdIv);renderCD();cdIv=setInterval(()=>{renderCD();if(focOn)updFB()},1000)}
+/* ════════ COUNTDOWN ════════ */
+function startCD(){clearInterval(cdIv);renderCD();cdIv=setInterval(()=>{renderCD();if(focOn)updFB();},1000)}
 function renderCD(){
   if(curTab!=='home')return;
   const n=new Date(),eod=new Date(n);eod.setHours(23,59,59,999);
   const eoy=new Date(n.getFullYear(),11,31,23,59,59,999);
   const d=eod-n,h=Math.floor(d/3600000),m=Math.floor(d%3600000/60000),s=Math.floor(d%60000/1000);
-  const yd=Math.ceil((eoy-n)/86400000);
   const de=document.getElementById('cdD'),ye=document.getElementById('cdY');
   if(de)de.textContent=`${p2(h)}:${p2(m)}:${p2(s)}`;
-  if(ye)ye.textContent=yd;
+  if(ye)ye.textContent=Math.ceil((eoy-n)/86400000);
 }
 function p2(n){return String(n).padStart(2,'0')}
 
-/* ══════════ FOCUS ══════════ */
+/* ════════ FOCUS ════════ */
 function togFoc(){if(focOn)stopFoc();else document.getElementById('mFoc').classList.add('on')}
 function pT(el,m){document.querySelectorAll('.tc').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');focMins=m}
 function startFoc(){
   if(focMins===0){const c=prompt('How many minutes?');focMins=parseInt(c)||30}
   closeM('mFoc');
   if('Notification' in window)Notification.requestPermission().then(p=>{
-    if(p==='granted')addNotif('✅ Focus Mode started for '+focMins+' min. Stay focused!');
+    if(p==='granted')addNotif('✅ Focus Mode started for '+focMins+' min.');
   });
   focOn=true;focEnd=Date.now()+focMins*60000;
   focIv=setInterval(()=>{
-    if(Date.now()>=focEnd){
-      stopFoc();toast('🎉 Focus session done! Great job!');
-      if(Notification.permission==='granted')new Notification('ProTrack',{body:'Focus done! Take a break.',icon:'🎯'});
-    }
+    if(Date.now()>=focEnd){stopFoc();toast('🎉 Focus session done! Great job!');}
     updFB();
   },1000);
   renderTab('home');
@@ -863,7 +931,7 @@ function updFB(){
   const el=document.getElementById('fbt');if(el)el.textContent=`${p2(m)}:${p2(s)}`;
 }
 
-/* ══════════ EXAM TAB ══════════ */
+/* ════════ EXAM TAB ════════ */
 function examH(){
   const sc=SE.map(e=>`<div class="ec ${selEx.includes(e.name)?'sel':''}" onclick="togEx('${e.name}',this)">${e.name}</div>`).join('');
   const cc=CE.map(e=>`<div class="ec ${selEx.includes(e.name)?'sel':''}" onclick="togEx('${e.name}',this)">${e.name}</div>`).join('');
@@ -887,12 +955,12 @@ function setET(t,el){
   document.getElementById('eLC').style.display=t==='central'?'':'none';
 }
 function togEx(name,el){
-  if(selEx.includes(name)){selEx=selEx.filter(e=>e!==name);el.classList.remove('sel')}
-  else{if(selEx.length>=2){toast('⚠️ Max 2 exams allowed!');return}selEx.push(name);el.classList.add('sel')}
+  if(selEx.includes(name)){selEx=selEx.filter(e=>e!==name);el.classList.remove('sel');}
+  else{if(selEx.length>=2){toast('⚠️ Max 2 exams allowed!');return}selEx.push(name);el.classList.add('sel');}
 }
 function saveEx(){save();toast('✅ Exam saved!');renderTab('exam')}
 
-/* ══════════ SYLLABUS with TICK ══════════ */
+/* Syllabus with TICK */
 function sylH(){
   return selEx.map(en=>{
     const ex=ALL.find(e=>e.name===en);if(!ex)return'';
@@ -910,21 +978,21 @@ function sylH(){
         <div style="flex:1">
           <div style="font-size:.82rem;font-weight:600;margin-bottom:6px">Subjects by Weightage</div>
           <div class="prog-bar-big"><div class="prog-fill-big" style="width:${pct}%"></div></div>
-          <div style="font-size:.7rem;color:var(--muted);margin-top:3px">${doneCount} / ${sorted.length} subjects done · ${pct}% complete</div>
+          <div style="font-size:.7rem;color:var(--muted);margin-top:3px">${doneCount} / ${sorted.length} done · ${pct}%</div>
         </div>
         <span class="ebadge" style="margin-left:10px;align-self:flex-start">${en}</span>
       </div>
       ${sorted.map((s,i)=>{
         const k=en+'|'+s.n;
         const done=!!prog[k];
-        const clr=CLRS[i]||'var(--muted)';
+        const clr=CLRS[i%CLRS.length];
         return`
         <div class="sr ${done?'done-row':''}">
-          <div class="tick-box ${done?'on':''}" onclick="togSubj('${en}','${s.n.replace(/'/g,"\\'")}')"></div>
+          <div class="tick-box ${done?'on':''}" onclick="togSubj('${en}','${s.n.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')"></div>
           <div class="si">
-            <div>
+            <div style="margin-bottom:4px">
               <span class="snum-badge" style="background:${clr}22;color:${clr}">#${i+1}</span>
-              <span class="swt-badge">${s.w}% weightage</span>
+              <span class="swt-badge">${s.w}%</span>
             </div>
             <div class="sn ${done?'done-txt':''}">${s.n}</div>
             <div class="stopic">📌 ${s.t}</div>
@@ -935,21 +1003,34 @@ function sylH(){
   }).join('');
 }
 
-/* Toggle subject tick */
 function togSubj(exam,sub){
   const k=exam+'|'+sub;
   prog[k]=prog[k]?0:1;
   save();
   renderTab('exam');
-  if(prog[k]) toast('✅ '+sub+' marked as done!');
+  if(prog[k])toast('✅ '+sub+' marked done!');
 }
 
-/* ══════════ PLAN TAB ══════════ */
+/* ════════ PLAN with PLANT ════════ */
 function planH(){
   if(!selEx.length)return`<div style="text-align:center;padding:60px 20px;color:var(--muted)"><div style="font-size:3rem;margin-bottom:12px">📚</div><div>Select exams first!</div></div>`;
+
+  /* Calc overall progress across all selected exams */
+  let totalS=0,doneS=0;
+  selEx.forEach(en=>{
+    const ex=ALL.find(e=>e.name===en);if(!ex)return;
+    totalS+=ex.s.length;
+    doneS+=ex.s.filter(s=>prog[en+'|'+s.n]).length;
+  });
+  const overallPct=totalS?Math.round(doneS/totalS*100):0;
+
   const opts=selEx.map(e=>`<option value="${e}">${e}</option>`).join('');
   const today=new Date().toISOString().split('T')[0];
+
   return`
+  <div class="slbl">🌱 Your Progress Garden</div>
+  ${plantHTML(overallPct)}
+
   <div class="slbl">🗓️ Study Planner</div>
   <div class="card">
     <div class="ctitle">📊 Choose exam & target dates</div>
@@ -967,6 +1048,119 @@ function planH(){
   </div>
   <div id="pOut"></div>`;
 }
+
+function plantHTML(pct){
+  /* Stages: 0-9 seed, 10-24 sprout, 25-49 small plant, 50-74 big plant, 75-89 flowering, 90-100 fruits */
+  let stage,label,plantSVG;
+  if(pct<10){
+    stage='🌰'; label='Seed planted — start learning!';
+    plantSVG=`<svg width="60" height="40" viewBox="0 0 60 40">
+      <ellipse cx="30" cy="35" rx="12" ry="5" fill="#6b4423" opacity=".5"/>
+      <ellipse cx="30" cy="32" rx="8" ry="6" fill="#8b5e3c"/>
+    </svg>`;
+  } else if(pct<25){
+    stage='🌱'; label='Sprouting — keep going!';
+    plantSVG=`<svg width="60" height="70" viewBox="0 0 60 70">
+      <line x1="30" y1="65" x2="30" y2="30" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="22" cy="38" rx="10" ry="6" fill="#4ade80" transform="rotate(-30 22 38)" opacity=".9"/>
+      <ellipse cx="38" cy="45" rx="9" ry="5" fill="#86efac" transform="rotate(20 38 45)" opacity=".9"/>
+      <circle cx="30" cy="28" r="5" fill="#4ade80"/>
+    </svg>`;
+  } else if(pct<50){
+    stage='🌿'; label='Growing well — great progress!';
+    plantSVG=`<svg width="80" height="100" viewBox="0 0 80 100">
+      <line x1="40" y1="98" x2="40" y2="40" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+      <line x1="40" y1="80" x2="20" y2="60" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+      <line x1="40" y1="70" x2="60" y2="52" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="14" cy="55" rx="14" ry="9" fill="#4ade80" transform="rotate(-20 14 55)"/>
+      <ellipse cx="64" cy="47" rx="13" ry="8" fill="#86efac" transform="rotate(15 64 47)"/>
+      <ellipse cx="40" cy="35" rx="12" ry="8" fill="#4ade80"/>
+    </svg>`;
+  } else if(pct<75){
+    stage='🌳'; label='Strong tree — halfway there!';
+    plantSVG=`<svg width="100" height="130" viewBox="0 0 100 130">
+      <rect x="43" y="90" width="14" height="40" rx="4" fill="#854d0e"/>
+      <line x1="50" y1="90" x2="25" y2="65" stroke="#854d0e" stroke-width="4" stroke-linecap="round"/>
+      <line x1="50" y1="90" x2="75" y2="70" stroke="#854d0e" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="50" cy="55" r="35" fill="#16a34a" opacity=".9"/>
+      <circle cx="30" cy="65" r="20" fill="#22c55e" opacity=".85"/>
+      <circle cx="70" cy="60" r="22" fill="#4ade80" opacity=".8"/>
+      <circle cx="50" cy="38" r="18" fill="#86efac" opacity=".8"/>
+    </svg>`;
+  } else if(pct<90){
+    stage='🌸'; label='Flowering — almost there!';
+    plantSVG=`<svg width="110" height="150" viewBox="0 0 110 150">
+      <rect x="48" y="110" width="14" height="40" rx="4" fill="#854d0e"/>
+      <line x1="55" y1="110" x2="22" y2="80" stroke="#854d0e" stroke-width="4" stroke-linecap="round"/>
+      <line x1="55" y1="110" x2="88" y2="82" stroke="#854d0e" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="55" cy="65" r="38" fill="#15803d" opacity=".9"/>
+      <circle cx="32" cy="78" r="22" fill="#16a34a" opacity=".85"/>
+      <circle cx="78" cy="73" r="24" fill="#22c55e" opacity=".8"/>
+      <!-- Flowers -->
+      <circle cx="42" cy="42" r="7" fill="#fda4af"/><circle cx="42" cy="42" r="3" fill="#fde68a"/>
+      <circle cx="65" cy="36" r="6" fill="#c4b5fd"/><circle cx="65" cy="36" r="2.5" fill="#fde68a"/>
+      <circle cx="30" cy="58" r="6" fill="#80d4f5"/><circle cx="30" cy="58" r="2.5" fill="#fde68a"/>
+      <circle cx="78" cy="50" r="7" fill="#fda4af"/><circle cx="78" cy="50" r="3" fill="#fde68a"/>
+      <circle cx="55" cy="32" r="5" fill="#86efac"/><circle cx="55" cy="32" r="2" fill="#fde68a"/>
+    </svg>`;
+  } else {
+    stage='🍎'; label=pct===100?'🎉 Harvest time! You did it!':'Almost harvested — finish strong!';
+    plantSVG=`<svg width="120" height="160" viewBox="0 0 120 160">
+      <rect x="52" y="118" width="16" height="42" rx="5" fill="#854d0e"/>
+      <line x1="60" y1="120" x2="20" y2="88" stroke="#854d0e" stroke-width="5" stroke-linecap="round"/>
+      <line x1="60" y1="120" x2="100" y2="90" stroke="#854d0e" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="60" cy="68" r="42" fill="#15803d" opacity=".95"/>
+      <circle cx="34" cy="84" r="26" fill="#16a34a" opacity=".9"/>
+      <circle cx="86" cy="80" r="27" fill="#22c55e" opacity=".85"/>
+      <!-- Flowers -->
+      <circle cx="44" cy="44" r="7" fill="#fda4af"/><circle cx="44" cy="44" r="3" fill="#fde68a"/>
+      <circle cx="70" cy="36" r="7" fill="#c4b5fd"/><circle cx="70" cy="36" r="3" fill="#fde68a"/>
+      <circle cx="32" cy="62" r="6" fill="#80d4f5"/><circle cx="32" cy="62" r="2.5" fill="#fde68a"/>
+      <circle cx="86" cy="52" r="7" fill="#fda4af"/><circle cx="86" cy="52" r="3" fill="#fde68a"/>
+      <!-- Fruits -->
+      <circle cx="48" cy="56" r="9" fill="#ef4444"/><circle cx="48" cy="52" r="3" fill="#854d0e"/>
+      <circle cx="68" cy="62" r="9" fill="#f97316"/><circle cx="68" cy="58" r="3" fill="#854d0e"/>
+      <circle cx="56" cy="75" r="10" fill="#ef4444"/><circle cx="56" cy="71" r="3" fill="#854d0e"/>
+      <circle cx="78" cy="68" r="8" fill="#f97316"/><circle cx="78" cy="64" r="3" fill="#854d0e"/>
+      <circle cx="38" cy="72" r="8" fill="#eab308"/><circle cx="38" cy="68" r="3" fill="#854d0e"/>
+    </svg>`;
+  }
+
+  return`
+  <div class="plant-section">
+    <div class="plant-title">${stage} Progress Garden</div>
+    <div class="plant-sub">${label}</div>
+    <div class="plant-pot">
+      <div class="plant-svg">${plantSVG}</div>
+      <div class="pot-soil"></div>
+      <div class="pot-rim"></div>
+      <div class="pot-body"></div>
+    </div>
+    <div class="plant-pct">${pct}%</div>
+    <div style="font-size:.75rem;color:var(--muted);margin-bottom:8px">${doneS} of ${totalS} subjects completed</div>
+    <div class="plant-stage">${pct<10?'🌰 Seed':pct<25?'🌱 Sprout':pct<50?'🌿 Sapling':pct<75?'🌳 Tree':pct<90?'🌸 Flowering':'🍎 Fruiting'}</div>
+  </div>`;
+  
+  /* Need doneS and totalS in scope */
+  var doneS=0,totalS=0; /* declared above for closure */
+}
+
+/* Helper to count for plant (re-calculate) */
+(function(){
+  const _planH=planH;
+  planH=function(){
+    /* pre-calculate */
+    doneS=0; totalS=0;
+    selEx.forEach(en=>{
+      const ex=ALL.find(e=>e.name===en);if(!ex)return;
+      totalS+=ex.s.length;
+      doneS+=ex.s.filter(s=>prog[en+'|'+s.n]).length;
+    });
+    return _planH();
+  };
+  var doneS=0,totalS=0;
+})();
+
 function calcPlan(){
   const en=document.getElementById('pEx').value;
   const s=new Date(document.getElementById('pSt').value);
@@ -989,7 +1183,7 @@ function calcPlan(){
     </div>`;
 }
 
-/* ══════════ TODO ══════════ */
+/* ════════ TODO ════════ */
 function todoH(){
   const sorted=[...todos].sort((a,b)=>new Date(a.dt)-new Date(b.dt));
   return`
@@ -1007,7 +1201,7 @@ function todoH(){
     ${sorted.map(t=>`
     <div class="tr ${t.done?'done':''}">
       <div class="tck ${t.done?'on':''}" onclick="togTd('${t.id}')">${t.done?'✓':''}</div>
-      <div class="ttx"><div class="tt">${t.title}</div><div class="td">📅 ${fmt(t.dt)}</div></div>
+      <div class="ttx"><div class="tt">${t.title}</div><div class="td2">📅 ${fmt(t.dt)}</div></div>
       <button class="tdl" onclick="delTd('${t.id}')">🗑️</button>
     </div>`).join('')}
   </div>`:''}`;
@@ -1028,10 +1222,10 @@ function schedN(t){
     if(Notification.permission==='granted')setTimeout(fire,ms);
     else Notification.requestPermission().then(p=>{if(p==='granted')setTimeout(fire,ms)});
   }
-  addNotif(`🔔 Reminder set: "${t.title}" — ${fmt(t.dt)}`);
+  addNotif(`🔔 Reminder: "${t.title}" — ${fmt(t.dt)}`);
 }
 
-/* ══════════ PROFILE ══════════ */
+/* ════════ PROFILE ════════ */
 function profH(){
   const totalS=selEx.reduce((a,en)=>{const ex=ALL.find(e=>e.name===en);return a+(ex?ex.s.length:0)},0);
   const doneS=selEx.reduce((a,en)=>{const ex=ALL.find(e=>e.name===en);if(!ex)return a;return a+ex.s.filter(s=>prog[en+'|'+s.n]).length},0);
@@ -1039,14 +1233,12 @@ function profH(){
   const ph=user.photo?`<img src="${user.photo}" alt="">`:`<span>${user.name[0].toUpperCase()}</span>`;
   return`
   <div class="slbl">👤 My Profile</div>
-  <div class="prof-card">
-    <div style="text-align:center;position:relative;display:inline-block;width:100%">
-      <div style="position:relative;display:inline-block">
-        <div class="prof-av" onclick="document.getElementById('photoInput').click()">${ph}</div>
-        <div class="prof-edit" onclick="document.getElementById('photoInput').click()">✏️</div>
-      </div>
+  <div class="card" style="text-align:center">
+    <div style="position:relative;display:inline-block">
+      <div class="prof-av" onclick="document.getElementById('photoInput').click()">${ph}</div>
+      <div class="prof-edit" onclick="document.getElementById('photoInput').click()">✏️</div>
     </div>
-    <div class="prof-name">${user.name}</div>
+    <div class="prof-name" style="margin-top:10px">${user.name}</div>
     <div class="prof-phone">📱 ${user.phone}</div>
     <div class="prof-stats">
       <div class="ps-item"><div class="ps-val">${selEx.length}</div><div class="ps-lbl">Exams</div></div>
@@ -1054,14 +1246,38 @@ function profH(){
       <div class="ps-item"><div class="ps-val">${doneTd}</div><div class="ps-lbl">Tasks Done</div></div>
     </div>
   </div>
+
+  <div class="slbl">✏️ Edit Profile</div>
   <div class="card">
-    <div class="ctitle">⚙️ Settings</div>
+    <div class="ctitle">📷 Profile Photo</div>
+    <button class="sbtn full" style="margin-top:0" onclick="document.getElementById('photoInput').click()">Change Photo</button>
+
+    <div class="ctitle" style="margin-top:16px">👤 Change Name</div>
+    <div class="edit-row">
+      <input class="inp" id="eName" type="text" placeholder="New name" value="${user.name}">
+      <button class="sbtn" onclick="saveName()" style="margin-top:0">Save</button>
+    </div>
+
+    <div class="ctitle" style="margin-top:4px">📱 Change Mobile Number</div>
+    <div class="edit-row">
+      <input class="inp" id="ePhone" type="tel" placeholder="New 10-digit number" maxlength="10" value="${user.phone}">
+      <button class="sbtn" onclick="savePhone()" style="margin-top:0">Save</button>
+    </div>
+
+    <div class="ctitle" style="margin-top:4px">🔑 Change Password</div>
+    <input class="inp" id="ePassOld" type="password" placeholder="Current password" style="margin-bottom:8px">
+    <input class="inp" id="ePassNew" type="password" placeholder="New password (min 6 chars)" style="margin-bottom:8px">
+    <button class="sbtn full" onclick="savePass()" style="margin-top:0">Change Password</button>
+  </div>
+
+  <div class="slbl">⚙️ Settings</div>
+  <div class="card">
     <div style="display:flex;flex-direction:column;gap:9px">
-      <button class="sbtn full" style="margin-top:0" onclick="document.getElementById('photoInput').click()">📷 Change Profile Photo</button>
       <button class="sbtn full sec" style="margin-top:0" onclick="clearProg()">🔄 Reset All Progress</button>
       <button class="sbtn full red" style="margin-top:0" onclick="doOut()">🚪 Logout</button>
     </div>
   </div>
+
   ${selEx.length?`
   <div class="slbl">📊 Progress Overview</div>
   ${selEx.map(en=>{
@@ -1072,14 +1288,56 @@ function profH(){
         <div style="font-family:var(--fd);font-weight:700;font-size:.88rem">${en}</div>
         <span class="ebadge">${pct}%</span>
       </div>
-      <div class="sbar" style="height:8px"><div class="sfill" style="width:${pct}%;background:${pct===100?'var(--green)':'linear-gradient(90deg,var(--a2),var(--accent))'}"></div></div>
+      <div class="prog-bar-big"><div class="prog-fill-big" style="width:${pct}%;background:${pct===100?'var(--green)':undefined}"></div></div>
       <div style="font-size:.72rem;color:var(--muted);margin-top:5px">${done} of ${tot} subjects completed</div>
     </div>`;
   }).join('')}`:''}`;
 }
+
+function saveName(){
+  const n=gv('eName');
+  if(!n){toast('⚠️ Name cannot be empty');return}
+  const ac=JSON.parse(ls('pt_ac')||'{}');
+  if(ac[user.phone])ac[user.phone].name=n;
+  ss('pt_ac',JSON.stringify(ac));
+  user.name=n;save();
+  refreshHeader();
+  toast('✅ Name updated!');
+  renderTab('profile');
+}
+function savePhone(){
+  const p=gv('ePhone');
+  if(p.length<10){toast('⚠️ Enter valid 10-digit number');return}
+  if(p===user.phone){toast('Same number');return}
+  const ac=JSON.parse(ls('pt_ac')||'{}');
+  if(ac[p]){toast('⚠️ This number is already registered');return}
+  /* Move data to new phone key */
+  ac[p]={...ac[user.phone]};
+  delete ac[user.phone];
+  ss('pt_ac',JSON.stringify(ac));
+  /* Move stored data */
+  ['pt_ex_','pt_pg_','pt_td_','pt_no_'].forEach(k=>{
+    const d=ls(k+user.phone);
+    if(d)ss(k+p,d);
+    localStorage.removeItem(k+user.phone);
+  });
+  user.phone=p;save();
+  toast('✅ Mobile number updated!');
+  renderTab('profile');
+}
+function savePass(){
+  const old=document.getElementById('ePassOld').value;
+  const nw=document.getElementById('ePassNew').value;
+  const ac=JSON.parse(ls('pt_ac')||'{}');
+  if(!ac[user.phone]||ac[user.phone].pass!==old){toast('⚠️ Current password is wrong');return}
+  if(nw.length<6){toast('⚠️ New password must be at least 6 characters');return}
+  ac[user.phone].pass=nw;
+  ss('pt_ac',JSON.stringify(ac));
+  toast('✅ Password changed!');
+}
 function clearProg(){if(confirm('Reset all subject progress?')){prog={};save();renderTab('profile');toast('Progress reset!')}}
 
-/* ══════════ UTILS ══════════ */
+/* ════════ UTILS ════════ */
 function addNotif(m){notifs.unshift({m,t:new Date().toLocaleTimeString()});save();updNdot()}
 function updNdot(){document.getElementById('ndot').style.display=notifs.length?'block':'none'}
 function openNotif(){
@@ -1093,6 +1351,9 @@ document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if
 let tT;
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>e.classList.remove('show'),2800)}
 function fmt(dt){return new Date(dt).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}
+
+/* Fix plant scope */
+var doneS=0,totalS=0;
 </script>
 </body>
 </html>
